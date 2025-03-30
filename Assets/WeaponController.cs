@@ -9,7 +9,7 @@ public class WeaponController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            hechizoManager.LanzarProyectil(shootPoint.position, -shootPoint.forward);
+            hechizoManager.LanzarProyectil(shootPoint.position, shootPoint.forward);
         }
     }
 }

@@ -9,6 +9,7 @@ public class Proyectil : MonoBehaviour
 
     public void Lanzar(Vector3 direccion)
     {
+        Reiniciar(); // Reinicia el estado del proyectil
         // Reiniciar temporizador
         tiempoTranscurrido = 0f;
         
@@ -42,4 +43,11 @@ public class Proyectil : MonoBehaviour
             gameObject.SetActive(false); // Devolver al pool
         }
     }
+
+    public void Reiniciar()
+{
+    tiempoTranscurrido = 0f;
+    StopAllCoroutines(); // Detener cualquier coroutine activa
+    // Reinicia otros estados si es necesario
+}
 }
