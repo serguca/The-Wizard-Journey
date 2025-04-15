@@ -45,9 +45,9 @@ public class Proyectil : MonoBehaviour
     }
 
     public void Reiniciar()
-{
-    tiempoTranscurrido = 0f;
-    StopAllCoroutines(); // Detener cualquier coroutine activa
-    // Reinicia otros estados si es necesario
-}
+    {
+        tiempoTranscurrido = 0f;
+        StopAllCoroutines(); // Detener cualquier coroutine activa
+        // Reinicia otros estados si es necesario
+    }
 }
