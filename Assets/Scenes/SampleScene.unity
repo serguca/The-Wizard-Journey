@@ -3372,7 +3372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: fov
-      value: 80
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: sprintFOV
@@ -4484,7 +4484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7969972704443486089, guid: 3ef94e73d5607784fbcbba8de4155b1e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.9865029
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 7969972704443486089, guid: 3ef94e73d5607784fbcbba8de4155b1e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5122,7 +5122,7 @@ PrefabInstance:
     - target: {fileID: 366870766979454480, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3d658f5742fa567458b8e914565b1707, type: 2}
+      objectReference: {fileID: 2100000, guid: 7d66f51f9daba4f4e9e7786cc32ed15d, type: 2}
     - target: {fileID: 2803820806472684270, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
       propertyPath: m_Name
       value: Skeleton
@@ -5170,7 +5170,7 @@ PrefabInstance:
     - target: {fileID: 4461325995939998605, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7fdc9758b8b215d4f966e49d42d1ddcd, type: 2}
+      objectReference: {fileID: 2100000, guid: 039abe93a756ee74fae6487e08b9151c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7511,7 +7511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4fe4fc7683c898747998c195978256cc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.007
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4fe4fc7683c898747998c195978256cc, type: 3}
       propertyPath: m_LocalRotation.w
