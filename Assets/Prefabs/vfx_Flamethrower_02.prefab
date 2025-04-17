@@ -4852,7 +4852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 10
-  tiempoVida: 5
+  tiempoVida: 10
+  explosionPrefab: {fileID: 3077343761403282166, guid: f78aaaec3b393e24ca74cd6de8194347, type: 3}
 --- !u!65 &9058381631328976032
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4872,7 +4873,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.42, y: 1.42, z: 1.42}
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8718154140617614610
 Rigidbody:
