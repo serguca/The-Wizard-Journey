@@ -7,15 +7,17 @@ public class Proyectil : MonoBehaviour
     public float tiempoVida = 3f;
     private float tiempoTranscurrido = 0f;
 
+    public GameObject explosionPrefab; // Prefab de la explosión
+
     public void Lanzar(Vector3 direccion)
     {
         Reiniciar(); // Reinicia el estado del proyectil
         // Reiniciar temporizador
         tiempoTranscurrido = 0f;
-        
+
         // Activar el objeto
         gameObject.SetActive(true);
-        
+
         // Configurar movimiento (usaremos Update para esto)
         // La dirección ya viene normalizada desde el HechizoManager
         StartCoroutine(MoverProyectil(direccion));
@@ -29,7 +31,7 @@ public class Proyectil : MonoBehaviour
             tiempoTranscurrido += Time.deltaTime;
             yield return null;
         }
-        
+
         // Desactivar el proyectil cuando termine su tiempo de vida
         gameObject.SetActive(false);
     }
@@ -39,6 +41,12 @@ public class Proyectil : MonoBehaviour
         Debug.Log($"Colisión detectada con: {collision.gameObject.name}");
         if (!collision.gameObject.CompareTag("Player"))
         {
+            if (explosionPrefab != null)
+            {
+                GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                explosion.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f); // Escala más pequeña
+                Destroy(explosion, 2f);
+            }
             gameObject.SetActive(false);
         }
     }
