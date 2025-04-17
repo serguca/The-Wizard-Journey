@@ -44,21 +44,16 @@ public class Proyectil : MonoBehaviour
             if (hechizoManager != null)
             {
                 // Obtener una explosión del pool
-                GameObject explosion = hechizoManager.ObtenerExplosion();
+                Explosion explosion = hechizoManager.ObtenerExplosion();
                 if (explosion != null)
                 {
                     // Posicionar y activar la explosión
                     explosion.transform.position = transform.position;
-                    explosion.SetActive(true);
+                    explosion.gameObject.SetActive(true);
 
-                    // Desactivar la explosión después de un tiempo
-                    //StartCoroutine(DesactivarExplosion(explosion));
-                    // Usar el script Explosion para manejar la desactivación
-                    Explosion explosionScript = explosion.GetComponent<Explosion>();
-                    if (explosionScript != null)
-                    {
-                        explosionScript.Activar(2f); // Activar la explosión por 2 segundos
-                    }
+                    // Activar la lógica de la explosión
+                    explosion.Activar(2f); // Activar la explosión por 2 segundos
+
 
                 }
             }
@@ -66,12 +61,6 @@ public class Proyectil : MonoBehaviour
             // Desactivar el proyectil
             gameObject.SetActive(false);
         }
-    }
-
-    IEnumerator DesactivarExplosion(GameObject explosion)
-    {
-        yield return new WaitForSeconds(2f); // Esperar 2 segundos
-        explosion.SetActive(false); // Desactivar la explosión
     }
 
     public void Reiniciar()

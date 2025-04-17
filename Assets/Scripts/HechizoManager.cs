@@ -3,55 +3,81 @@ using UnityEngine;
 
 public class HechizoManager : MonoBehaviour
 {
+    [Header("Prefabs")]
     [SerializeField] private GameObject proyectilPrefab;
-    [SerializeField] private GameObject explosionPrefab; // Prefab de la explosión
+    [SerializeField] private GameObject explosionPrefab;
+
+    [Header("Pool Settings")]
     [SerializeField] private int poolSize = 10;
-    private List<GameObject> proyectilPool;
-    private List<GameObject> explosionPool;
 
-    void Start()
+    private readonly List<Proyectil> proyectilPool = new();
+    private readonly List<Explosion> explosionPool = new();
+
+    private void Awake()
     {
-        // Crear pool de proyectiles
-        proyectilPool = new List<GameObject>();
+        InicializarPoolProyectiles();
+        InicializarPoolExplosiones();
+    }
+
+    private void InicializarPoolProyectiles()
+    {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject proyectil = Instantiate(proyectilPrefab);
-            proyectil.SetActive(false);
+            GameObject go = Instantiate(proyectilPrefab);
+            go.SetActive(false);
+
+            Proyectil proyectil = go.GetComponent<Proyectil>();
             proyectilPool.Add(proyectil);
-        }
 
-        // Crear pool de explosiones
-        explosionPool = new List<GameObject>();
+            // Inyectamos referencia del manager
+            //proyectil.Inicializar(this);
+        }
+    }
+
+    private void InicializarPoolExplosiones()
+    {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject explosion = Instantiate(explosionPrefab);
-            explosion.SetActive(false);
-            explosionPool.Add(explosion);
+            GameObject go = Instantiate(explosionPrefab);
+            go.SetActive(false);
+
+            Explosion controller = go.GetComponent<Explosion>();
+            explosionPool.Add(controller);
         }
     }
 
-    public GameObject ObtenerProyectil()
+    public Proyectil ObtenerProyectil()
     {
-        return proyectilPool.Find(p => !p.activeInHierarchy);
+        foreach (var p in proyectilPool)
+        {
+            if (!p.gameObject.activeInHierarchy)
+                return p;
+        }
+        return null;
     }
 
-    public GameObject ObtenerExplosion()
+    public Explosion ObtenerExplosion()
     {
-        return explosionPool.Find(e => !e.activeInHierarchy);
+        foreach (var e in explosionPool)
+        {
+            if (!e.gameObject.activeInHierarchy)
+                return e;
+        }
+        return null;
     }
 
     public void LanzarProyectil(Vector3 posicion, Vector3 direccion)
     {
-        GameObject proyectil = proyectilPool.Find(p => !p.activeInHierarchy);
+        Proyectil proyectil = ObtenerProyectil();
 
         if (proyectil != null)
         {
-            proyectil.transform.position = posicion;
-            proyectil.transform.rotation = Quaternion.LookRotation(direccion);
-            proyectil.SetActive(true);
+            GameObject go = proyectil.gameObject;
+            go.transform.position = posicion;
+            go.transform.rotation = Quaternion.LookRotation(direccion);
+            go.SetActive(true);
 
-            Proyectil script = proyectil.GetComponent<Proyectil>();
-            script.Lanzar(direccion); // Ahora pasamos la dirección
+            proyectil.Lanzar(direccion);
         }
     }
 }
