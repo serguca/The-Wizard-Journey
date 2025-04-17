@@ -34,13 +34,12 @@ public class Proyectil : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        // Aquí puedes añadir lógica de impacto
-        if (!other.CompareTag("Player")) // Ejemplo: no colisionar con el jugador
+        Debug.Log($"Colisión detectada con: {collision.gameObject.name}");
+        if (!collision.gameObject.CompareTag("Player"))
         {
-            // Efectos de impacto, daño, etc.
-            gameObject.SetActive(false); // Devolver al pool
+            gameObject.SetActive(false);
         }
     }
 
