@@ -1299,14 +1299,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatsIsGround:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   whatsIsPlayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   walkPointRange: 100
   timeBetweenAttacks: 1
   sightRange: 0.5
-  attackRange: 0.04
+  attackRange: 0.05
   playerInSightRange: 0
   playerInAttackRange: 0
   shootPoint: {fileID: 1518541899}
@@ -1324,7 +1324,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 378349241}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -7450,6 +7450,18 @@ PrefabInstance:
       value: PolyArtWizardMaskTintMat (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4063552230360950, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063552230360950, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063552230360950, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063552230360950, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.21
       objectReference: {fileID: 0}
@@ -7493,6 +7505,14 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 648d0f4cafb96714da93bb17f89959d3, type: 2}
+    - target: {fileID: 136275810615880682, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
+      propertyPath: m_Radius
+      value: 0.5271355
+      objectReference: {fileID: 0}
+    - target: {fileID: 136275810615880682, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 137047875659472788, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
