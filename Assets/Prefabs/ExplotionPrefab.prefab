@@ -4904,7 +4904,7 @@ GameObject:
   - component: {fileID: 8763340833693183750}
   - component: {fileID: 8529308659385635440}
   m_Layer: 0
-  m_Name: ExplosionPrefab
+  m_Name: ExplotionPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5670,7 +5670,7 @@ GameObject:
   - component: {fileID: 1518728197}
   - component: {fileID: 1518728198}
   m_Layer: 0
-  m_Name: HechizoManager
+  m_Name: SpellManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5703,8 +5703,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a268b20f06ecca744ae5faad1fe4688d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proyectilPrefab: {fileID: 389821699222927281, guid: 2cf0ef9bb896601458e3f852264875d2, type: 3}
-  explosionPrefab: {fileID: 3077343761403282166, guid: b76acc122539d7f4681f0d0ba587d6b1, type: 3}
+  projectilePrefab: {fileID: 2489664353895170629, guid: 6a669e1a4d2e6d04bb8aa9a889075fdb, type: 3}
+  explotionPrefab: {fileID: 3077343761403282166, guid: b76acc122539d7f4681f0d0ba587d6b1, type: 3}
   poolSize: 30
 --- !u!4 &1585791903 stripped
 Transform:
