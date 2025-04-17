@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class Proyectil : MonoBehaviour
 {
-    public float velocidad = 10f;
-    public float tiempoVida = 3f;
+    [SerializeField] private float velocidad = 10f;
+    [SerializeField] private float tiempoVida = 3f;
     private float tiempoTranscurrido = 0f;
 
-    public GameObject explosionPrefab; // Prefab de la explosión
+    private HechizoManager hechizoManager; // Referencia al HechizoManager
+
+    void Start()
+    {
+        // Buscar el HechizoManager en la escena
+        hechizoManager = FindFirstObjectByType<HechizoManager>();
+    }
 
     public void Lanzar(Vector3 direccion)
     {
         Reiniciar(); // Reinicia el estado del proyectil
-        // Reiniciar temporizador
         tiempoTranscurrido = 0f;
-
-        // Activar el objeto
         gameObject.SetActive(true);
-
-        // Configurar movimiento (usaremos Update para esto)
-        // La dirección ya viene normalizada desde el HechizoManager
         StartCoroutine(MoverProyectil(direccion));
     }
 
@@ -41,20 +41,36 @@ public class Proyectil : MonoBehaviour
         Debug.Log($"Colisión detectada con: {collision.gameObject.name}");
         if (!collision.gameObject.CompareTag("Player"))
         {
-            if (explosionPrefab != null)
+            if (hechizoManager != null)
             {
-                GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-                explosion.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f); // Escala más pequeña
-                Destroy(explosion, 2f);
+                // Obtener una explosión del pool
+                GameObject explosion = hechizoManager.ObtenerExplosion();
+                if (explosion != null)
+                {
+                    // Posicionar y activar la explosión
+                    explosion.transform.position = transform.position;
+                    explosion.transform.rotation = Quaternion.identity;
+                    explosion.SetActive(true);
+
+                    // Desactivar la explosión después de un tiempo
+                    StartCoroutine(DesactivarExplosion(explosion));
+                }
             }
+
+            // Desactivar el proyectil
             gameObject.SetActive(false);
         }
+    }
+
+    IEnumerator DesactivarExplosion(GameObject explosion)
+    {
+        yield return new WaitForSeconds(2f); // Esperar 2 segundos
+        explosion.SetActive(false); // Desactivar la explosión
     }
 
     public void Reiniciar()
     {
         tiempoTranscurrido = 0f;
         StopAllCoroutines(); // Detener cualquier coroutine activa
-        // Reinicia otros estados si es necesario
     }
 }

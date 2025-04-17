@@ -5704,7 +5704,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proyectilPrefab: {fileID: 389821699222927281, guid: 2cf0ef9bb896601458e3f852264875d2, type: 3}
-  poolSize: 50
+  explosionPrefab: {fileID: 3077343761403282166, guid: b76acc122539d7f4681f0d0ba587d6b1, type: 3}
+  poolSize: 30
 --- !u!4 &1585791903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7969972704443486089, guid: 3ef94e73d5607784fbcbba8de4155b1e, type: 3}
@@ -7042,15 +7043,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ee01ea660f23d4a8afb162aa2b740f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanciaMaxima: 100
-  capasColision:
-    m_Bits: 4294967295
-  sistemaParticulas: {fileID: 0}
-  velocidadHechizo: 30
-  lanzandoHechizo: 0
-  direccionHechizo: {x: 0, y: 0, z: 0}
-  posicionInicial: {x: 0, y: 0, z: 0}
-  distanciaRecorrida: 0
 --- !u!1001 &1996324868
 PrefabInstance:
   m_ObjectHideFlags: 0

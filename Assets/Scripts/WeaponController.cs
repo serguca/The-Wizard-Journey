@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public HechizoManager hechizoManager;
-    public Transform shootPoint;
+    [SerializeField] private HechizoManager hechizoManager;
+    [SerializeField] private Transform shootPoint;
 
     void Update()
     {
