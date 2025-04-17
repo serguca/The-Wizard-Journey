@@ -49,11 +49,17 @@ public class Proyectil : MonoBehaviour
                 {
                     // Posicionar y activar la explosión
                     explosion.transform.position = transform.position;
-                    explosion.transform.rotation = Quaternion.identity;
                     explosion.SetActive(true);
 
                     // Desactivar la explosión después de un tiempo
-                    StartCoroutine(DesactivarExplosion(explosion));
+                    //StartCoroutine(DesactivarExplosion(explosion));
+                    // Usar el script Explosion para manejar la desactivación
+                    Explosion explosionScript = explosion.GetComponent<Explosion>();
+                    if (explosionScript != null)
+                    {
+                        explosionScript.Activar(2f); // Activar la explosión por 2 segundos
+                    }
+
                 }
             }
 
