@@ -12,8 +12,6 @@ public class Proyectil : MonoBehaviour
 
     void Start()
     {
-        // Buscar el HechizoManager en la escena
-        spellManager = FindFirstObjectByType<SpellManager>();
     }
 
     public void Initialize(SpellManager manager)
