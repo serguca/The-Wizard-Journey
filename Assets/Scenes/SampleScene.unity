@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 108337449}
   - component: {fileID: 108337448}
   - component: {fileID: 108337447}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 303783198}
   - component: {fileID: 303783197}
   - component: {fileID: 303783196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1299,7 +1299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatsIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   whatsIsPlayer:
     serializedVersion: 2
     m_Bits: 0
@@ -1500,7 +1500,7 @@ GameObject:
   - component: {fileID: 487492656}
   - component: {fileID: 487492658}
   - component: {fileID: 487492657}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1695,7 +1695,7 @@ GameObject:
   - component: {fileID: 526389886}
   - component: {fileID: 526389885}
   - component: {fileID: 526389884}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1804,7 +1804,7 @@ GameObject:
   - component: {fileID: 537818506}
   - component: {fileID: 537818505}
   - component: {fileID: 537818504}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1984,7 +1984,7 @@ GameObject:
   - component: {fileID: 558049929}
   - component: {fileID: 558049928}
   - component: {fileID: 558049927}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2477,7 +2477,7 @@ GameObject:
   - component: {fileID: 691154000}
   - component: {fileID: 691154002}
   - component: {fileID: 691154001}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2885,7 +2885,7 @@ GameObject:
   - component: {fileID: 840278347}
   - component: {fileID: 840278346}
   - component: {fileID: 840278345}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3326,6 +3326,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Half_Alta Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8939420858251076461, guid: 518b6272d11f5eb4dad404fbad574f6a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3487,8 +3491,40 @@ PrefabInstance:
       value: FirstPersonController
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864850190357393, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864850831721272, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864850888339818, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851310106424, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851397454630, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851508666809, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851551516604, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3641,6 +3677,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hallway_Half_Alta Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8939420858251076461, guid: 518b6272d11f5eb4dad404fbad574f6a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3663,7 +3703,7 @@ GameObject:
   - component: {fileID: 995390484}
   - component: {fileID: 995390483}
   - component: {fileID: 995390482}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3777,7 +3817,7 @@ GameObject:
   - component: {fileID: 1014202545}
   - component: {fileID: 1014202544}
   - component: {fileID: 1014202543}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4090,7 +4130,7 @@ GameObject:
   - component: {fileID: 1068933076}
   - component: {fileID: 1068933078}
   - component: {fileID: 1068933077}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4258,7 +4298,7 @@ GameObject:
   - component: {fileID: 1104015729}
   - component: {fileID: 1104015728}
   - component: {fileID: 1104015727}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4498,6 +4538,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Staff01PolyArt
       objectReference: {fileID: 0}
+    - target: {fileID: 1853494166779514, guid: 713f90f70ef14794bbdcabcb038f4ae7, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4202627603400202, guid: 713f90f70ef14794bbdcabcb038f4ae7, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.8405913
@@ -4705,7 +4749,7 @@ GameObject:
   - component: {fileID: 1233890580}
   - component: {fileID: 1233890579}
   - component: {fileID: 1233890578}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5019,115 +5063,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4fe4fc7683c898747998c195978256cc, type: 3}
   m_PrefabInstance: {fileID: 1618806601}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1315383351
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1315383352}
-  - component: {fileID: 1315383355}
-  - component: {fileID: 1315383354}
-  - component: {fileID: 1315383353}
-  m_Layer: 0
-  m_Name: FloorTIle (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!4 &1315383352
+--- !u!4 &1315383352 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+  m_PrefabInstance: {fileID: 2135402715712334961}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315383351}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.49999988, y: 0, z: -0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 487492656}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1315383353
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315383351}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4023542552031888103, guid: 9554d4dacd26c8448bb4f3f907ff1fe9, type: 3}
---- !u!23 &1315383354
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315383351}
-  m_Enabled: 1
-  m_CastShadows: 2
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: eac71323f926d3745adba7e53109f474, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1315383355
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1315383351}
-  m_Mesh: {fileID: -8569513391688025148, guid: 20f2ea214cfe0d748b1b4b8ad965af69, type: 3}
 --- !u!4 &1349601650 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8582451509887590953, guid: f8c0297a8d99e2747baeb5697c8ecb66, type: 3}
@@ -5485,7 +5425,7 @@ GameObject:
   - component: {fileID: 1451958563}
   - component: {fileID: 1451958562}
   - component: {fileID: 1451958561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5594,7 +5534,7 @@ GameObject:
   - component: {fileID: 1465607690}
   - component: {fileID: 1465607689}
   - component: {fileID: 1465607688}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6052,7 +5992,7 @@ GameObject:
   - component: {fileID: 1625417035}
   - component: {fileID: 1625417034}
   - component: {fileID: 1625417033}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6855,7 +6795,7 @@ GameObject:
   - component: {fileID: 1874957892}
   - component: {fileID: 1874957891}
   - component: {fileID: 1874957890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6964,7 +6904,7 @@ GameObject:
   - component: {fileID: 1898230186}
   - component: {fileID: 1898230185}
   - component: {fileID: 1898230184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7073,7 +7013,7 @@ GameObject:
   - component: {fileID: 1904977665}
   - component: {fileID: 1904977664}
   - component: {fileID: 1904977663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7543,7 +7483,7 @@ GameObject:
   - component: {fileID: 2068548576}
   - component: {fileID: 2068548575}
   - component: {fileID: 2068548574}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7652,7 +7592,7 @@ GameObject:
   - component: {fileID: 2070385424}
   - component: {fileID: 2070385423}
   - component: {fileID: 2070385422}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorTIle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7890,7 +7830,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -8002,6 +7942,67 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1694370557}
   m_SourcePrefab: {fileID: 100100000, guid: 4fe4fc7683c898747998c195978256cc, type: 3}
+--- !u!1001 &2135402715712334961
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 487492656}
+    m_Modifications:
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.49999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4112367905923047461, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495896113507575441, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_Name
+      value: FloorTIle (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495896113507575441, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 33adc308dd16c2443867dcde9e82c3eb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
