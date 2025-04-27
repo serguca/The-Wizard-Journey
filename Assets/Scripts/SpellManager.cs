@@ -11,7 +11,7 @@ public class SpellManager : MonoBehaviour
     [Header("Pool Settings")]
     [SerializeField] private int poolSize = 10;
 
-    private readonly List<Proyectil> projectilePool = new();
+    private readonly List<Proyectile> projectilePool = new();
     private readonly List<Explotion> explotionPool = new();
 
     private void Awake()
@@ -27,7 +27,7 @@ public class SpellManager : MonoBehaviour
             GameObject go = Instantiate(projectilePrefab);
             go.SetActive(false);
 
-            Proyectil projectile = go.GetComponent<Proyectil>();
+            Proyectile projectile = go.GetComponent<Proyectile>();
             projectilePool.Add(projectile);
 
             // Inyectamos referencia del manager
@@ -47,7 +47,7 @@ public class SpellManager : MonoBehaviour
         }
     }
 
-    public Proyectil GetProjectile()
+    public Proyectile GetProjectile()
     {
         foreach (var p in projectilePool)
         {
@@ -69,7 +69,7 @@ public class SpellManager : MonoBehaviour
 
     public void LaunchProjectile(Vector3 position, Vector3 direction)
     {
-        Proyectil projectile = GetProjectile();
+        Proyectile projectile = GetProjectile();
 
         if (projectile != null)
         {

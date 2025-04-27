@@ -78,7 +78,8 @@ public class EnemyAi : MonoBehaviour
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position); // Detener el movimiento del enemigo
-        transform.LookAt(player); // Mirar al jugador
+        Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, player.position.z);
+        transform.LookAt(targetPosition); // Mirar al jugador sin el eje y
 
         if (!alreadyAttacked)
         {
