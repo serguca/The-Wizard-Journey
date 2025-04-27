@@ -8,6 +8,7 @@ public class EnemyAi : MonoBehaviour
     [SerializeField] private LayerMask whatsIsGround, whatsIsPlayer;
 
     [Header("Patrolling")]
+    [SerializeField] private bool doesItPatrols = false;
     [SerializeField] private float walkPointRange;
     private Vector3 walkPoint;
     private bool walkPointSet;
@@ -49,14 +50,12 @@ public class EnemyAi : MonoBehaviour
 
     private void Patrolling()
     {
-        if (!walkPointSet) SearchWalkPoint();
-
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkPointSet = false;
+        if(doesItPatrols){
+            if (!walkPointSet) SearchWalkPoint();
+            if (walkPointSet) agent.SetDestination(walkPoint);
+            Vector3 distanceToWalkPoint = transform.position - walkPoint;
+            if (distanceToWalkPoint.magnitude < 1f) walkPointSet = false;
+        }
     }
 
     private void SearchWalkPoint()
