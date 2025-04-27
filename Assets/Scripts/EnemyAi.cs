@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,11 +25,13 @@ public class EnemyAi : MonoBehaviour
     [Header("Shooting")]
     [SerializeField] private Transform shootPoint; // Punto de disparo del enemigo
     private SpellManager spellManager; // Referencia al SpellManager
+    private Animator animator; // Referencia al Animator
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>(); // Obtener el Animator del enemigo
 
         // Buscar el SpellManager en la escena
         spellManager = FindFirstObjectByType<SpellManager>();
@@ -50,7 +53,8 @@ public class EnemyAi : MonoBehaviour
 
     private void Patrolling()
     {
-        if(doesItPatrols){
+        if (doesItPatrols)
+        {
             if (!walkPointSet) SearchWalkPoint();
             if (walkPointSet) agent.SetDestination(walkPoint);
             Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -71,6 +75,7 @@ public class EnemyAi : MonoBehaviour
 
     private void ChasePlayer()
     {
+        
         agent.SetDestination(player.position);
     }
 
@@ -82,12 +87,35 @@ public class EnemyAi : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            // Disparar proyectil hacia el jugador
-            ShootProjectile();
-
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks); // Reiniciar el ataque después de un tiempo
+            StartCoroutine(HandleShooting());
         }
+    }
+    private IEnumerator HandleShooting()
+    {
+        alreadyAttacked = true;
+
+        // Activar la animación de disparo
+        if (animator != null)
+        {
+            animator.SetBool("IsShooting", true);
+        }
+
+        // Esperar un pequeño delay antes de lanzar el proyectil (sincronizado con la animación)
+        yield return new WaitForSeconds(0.5f); // Ajusta este valor según la duración de la animación de disparo
+
+        // Lanzar el proyectil
+        ShootProjectile();
+
+        // Volver a la animación de Idle
+        if (animator != null)
+        {
+            animator.SetBool("IsShooting", false);
+        }
+
+        // Esperar el tiempo entre ataques
+        yield return new WaitForSeconds(timeBetweenAttacks - 0.5f); // Resto del tiempo de espera
+
+        alreadyAttacked = false;
     }
 
     private void ShootProjectile()

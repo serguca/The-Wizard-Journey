@@ -279,6 +279,7 @@ MonoBehaviour:
   whatsIsPlayer:
     serializedVersion: 2
     m_Bits: 128
+  doesItPatrols: 0
   walkPointRange: 0
   timeBetweenAttacks: 3
   sightRange: 15
@@ -768,7 +769,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 936655011711060175, guid: 5e10be2f5a748844dbd0b2b7e6fafd4a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 936655011711060175, guid: 5e10be2f5a748844dbd0b2b7e6fafd4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1510,7 +1511,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 936655011711060175, guid: 5e10be2f5a748844dbd0b2b7e6fafd4a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 936655011711060175, guid: 5e10be2f5a748844dbd0b2b7e6fafd4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4953,8 +4954,8 @@ Transform:
   m_GameObject: {fileID: 933129863}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.54}
+  m_LocalScale: {x: 1, y: 1.1, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1077757173}
@@ -5334,7 +5335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850190357393, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_Layer
@@ -6186,7 +6187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3361111590343502026, guid: 3b048cf2099052644bd444fb017cad6e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3361111590343502026, guid: 3b048cf2099052644bd444fb017cad6e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8210,6 +8211,7 @@ MonoBehaviour:
   whatsIsPlayer:
     serializedVersion: 2
     m_Bits: 4294967295
+  doesItPatrols: 0
   walkPointRange: 100
   timeBetweenAttacks: 1
   sightRange: 10
