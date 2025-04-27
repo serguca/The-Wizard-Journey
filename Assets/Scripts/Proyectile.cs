@@ -40,7 +40,7 @@ public class Proyectile : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
         Debug.Log($"Colisión detectada con: {collision.gameObject.name}");
         if (!collision.gameObject.CompareTag("Player"))
