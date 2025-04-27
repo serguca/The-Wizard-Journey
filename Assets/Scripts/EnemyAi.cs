@@ -24,7 +24,7 @@ public class EnemyAi : MonoBehaviour
 
     [Header("Shooting")]
     [SerializeField] private Transform shootPoint; // Punto de disparo del enemigo
-    private SpellManager spellManager; // Referencia al SpellManager
+    [SerializeField] private SpellManager spellManager; // Referencia al SpellManager
     private Animator animator; // Referencia al Animator
 
     private void Awake()
@@ -34,7 +34,7 @@ public class EnemyAi : MonoBehaviour
         animator = GetComponent<Animator>(); // Obtener el Animator del enemigo
 
         // Buscar el SpellManager en la escena
-        spellManager = FindFirstObjectByType<SpellManager>();
+        //spellManager = FindFirstObjectByType<SpellManager>();
         if (spellManager == null)
         {
             Debug.LogError("No se encontró un SpellManager en la escena.");
@@ -75,8 +75,8 @@ public class EnemyAi : MonoBehaviour
 
     private void ChasePlayer()
     {
-        
         agent.SetDestination(player.position);
+        animator.SetBool("IsWalking", true);
     }
 
     private void AttackPlayer()
@@ -84,6 +84,8 @@ public class EnemyAi : MonoBehaviour
         agent.SetDestination(transform.position); // Detener el movimiento del enemigo
         Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, player.position.z);
         transform.LookAt(targetPosition); // Mirar al jugador sin el eje y
+
+        animator.SetBool("IsWalking", false);
 
         if (!alreadyAttacked)
         {
