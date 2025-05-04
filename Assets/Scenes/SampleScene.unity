@@ -232,6 +232,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1953271650171834, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2535425}
+    - targetCorrespondingSourceObject: {fileID: 1953271650171834, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2535429}
   m_SourcePrefab: {fileID: 100100000, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
 --- !u!1 &2535423 stripped
 GameObject:
@@ -272,7 +275,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2535423}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a847db362a2fb50419c73492ad2f262b, type: 3}
   m_Name: 
@@ -290,6 +293,31 @@ MonoBehaviour:
   attackRange: 8
   playerInSightRange: 0
   playerInAttackRange: 0
+  shootPoint: {fileID: 596686210}
+  spellManager: {fileID: 694085485}
+--- !u!114 &2535429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2535423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64aa2b7385e28a845baa9c91854fc488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatsIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  whatsIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  doesItPatrols: 0
+  walkPointRange: 0
+  timeBetweenAttacks: 2
+  sightRange: 20
+  attackRange: 8
   shootPoint: {fileID: 596686210}
   spellManager: {fileID: 694085485}
 --- !u!1001 &8713502
@@ -5086,7 +5114,7 @@ Transform:
   m_GameObject: {fileID: 933129863}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 15.69, y: -5.453, z: -1.6800001}
+  m_LocalPosition: {x: 15.55, y: -5.453, z: -1.6800001}
   m_LocalScale: {x: 1, y: 1.1, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
