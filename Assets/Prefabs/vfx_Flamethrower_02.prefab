@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8718154140617614610}
   m_Layer: 0
   m_Name: vfx_Flamethrower_02
-  m_TagString: Untagged
+  m_TagString: Hit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

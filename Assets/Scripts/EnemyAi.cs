@@ -51,6 +51,24 @@ public class EnemyAi : MonoBehaviour
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+    // Verificar si el objeto que colisionó es un proyectil
+    if (other.CompareTag("Hit"))
+    {
+        // Activar la animación de "hit"
+        if (animator != null)
+        {
+            animator.SetTrigger("Hit");
+        }
+
+        // Opcional: Desactivar el proyectil después de la colisión
+        //other.gameObject.SetActive(false);
+
+        Debug.Log("El enemigo ha sido golpeado por un proyectil.");
+    }
+    }
+
     private void Patrolling()
     {
         if (doesItPatrols)
@@ -111,7 +129,6 @@ public class EnemyAi : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Idle"); // Activar el trigger
-            //animator.SetBool("IsShooting", false);
         }
 
         // Esperar el tiempo entre ataques

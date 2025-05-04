@@ -42,7 +42,7 @@ public class Proyectile : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log($"Colisión detectada con: {collision.gameObject.name}");
+        //Debug.Log($"Colisión detectada con: {collision.gameObject.name}");
         if (!collision.gameObject.CompareTag("Player"))
         {
             if (spellManager != null)
