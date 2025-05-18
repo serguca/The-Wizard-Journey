@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class EnemyBlueMage : Enemy
-{
+{   
     [SerializeField] private Transform shootPoint;
     [SerializeField] private SpellManager spellManager;
 

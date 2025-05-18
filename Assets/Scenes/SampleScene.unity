@@ -215,6 +215,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 136275810615880682, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 137047875659472788, guid: dbf7a0c9d76b77a40af3104feac0641d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -307,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aa2b7385e28a845baa9c91854fc488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   whatsIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -846,7 +851,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105978974}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &105978978
 Camera:
   m_ObjectHideFlags: 0
@@ -11186,6 +11191,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1218850408}
     m_Modifications:
+    - target: {fileID: 430495674, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
+      propertyPath: progress
+      value: 0.174
+      objectReference: {fileID: 0}
+    - target: {fileID: 430495674, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
+      propertyPath: enableTesting
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 672752557860993109, guid: bd6b16ebae3e748678b90a25cb354102, type: 3}
       propertyPath: m_Layer
       value: 0

@@ -42,26 +42,22 @@ public class Proyectile : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        //Debug.Log($"Colisión detectada con: {collision.gameObject.name}");
-        if (!collision.gameObject.CompareTag("Player"))
+        MakeExplosion();
+        gameObject.SetActive(false);
+    }
+
+    void MakeExplosion()
+    {
+        if (spellManager != null)
         {
-            if (spellManager != null)
+            Explotion explotion = spellManager.GetExplotion();
+            if (explotion != null)
             {
-                // Obtener una explosión del pool
-                Explotion explotion = spellManager.GetExplotion();
-                if (explotion != null)
-                {
-                    // Posicionar y activar la explosión
-                    explotion.transform.position = transform.position;
-                    explotion.gameObject.SetActive(true);
+                explotion.transform.position = transform.position;
+                explotion.gameObject.SetActive(true);
 
-                    // Activar la lógica de la explosión
-                    explotion.Activate(2f); // Activar la explosión por 2 segundos
-                }
+                explotion.Activate(2f); // Activar la explosión por 2 segundos
             }
-
-            // Desactivar el proyectil
-            gameObject.SetActive(false);
         }
     }
 
