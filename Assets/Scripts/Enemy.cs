@@ -1,4 +1,5 @@
 using System.Collections;
+using MagicPigGames;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,9 @@ public abstract class Enemy : MonoBehaviour
     protected Collider col;
     protected NavMeshAgent agent;
     protected Transform player;
+    [SerializeField] private HorizontalProgressBar healthBar;
     [SerializeField] protected float health;
+    [SerializeField] private bool hitCooldownActive = false;
     private bool isDead = false;
 
     [SerializeField] protected LayerMask whatsIsGround, whatsIsPlayer;
@@ -28,7 +31,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected Animator animator;
 
-    protected virtual void Awake()
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -36,7 +39,7 @@ public abstract class Enemy : MonoBehaviour
         col = GetComponent<Collider>();
     }
 
-    protected virtual void Update()
+    private void Update()
     {
         if (health <= 0f && !isDead) Die();
         if (isDead) return; // Bloquea toda la lógica si está muerto
@@ -46,24 +49,30 @@ public abstract class Enemy : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+        healthBar.SetProgress(health / 30f); // Actualiza la barra de salud
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if(hitCooldownActive) return;
         if (other.CompareTag("Hit"))
         {
-            // Activar la animación de "hit"
-            if (animator != null)
-            {
-                animator.SetTrigger("Hit");
-            }
-            health -= 10f; // Reducir la salud del enemigo al recibir daño
+            if (animator != null) animator.SetTrigger("Hit");
+            health -= 10f;
+            //hitCooldownActive = true;
+            //ColliderCooldown();
             Debug.Log("El enemigo ha sido golpeado por un proyectil.");
         }
     }
 
+    private IEnumerator ColliderCooldown()
+    {
+        yield return new WaitForSeconds(0.1f);
+        hitCooldownActive = false;
+    }
 
-    protected virtual void Die()
+    private void Die()
     {
         isDead = true;
 
@@ -79,7 +88,7 @@ public abstract class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    protected virtual void Patrolling()
+    private void Patrolling()
     {
         if (doesItPatrols)
         {
@@ -91,7 +100,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void SearchWalkPoint()
+    private void SearchWalkPoint()
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -102,13 +111,10 @@ public abstract class Enemy : MonoBehaviour
             walkPointSet = true;
     }
 
-    protected virtual void ChasePlayer()
+    private void ChasePlayer()
     {
         agent.SetDestination(player.position);
-        if (animator != null)
-        {
-            animator.SetBool("IsWalking", true);
-        }
+        if (animator != null) animator.SetBool("IsWalking", true);
 
         LookPlayer();
     }
@@ -120,19 +126,13 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    protected virtual void AttackPlayer()
+    private void AttackPlayer()
     {
         LookPlayer();
         agent.SetDestination(transform.position);
-        if (animator != null)
-        {
-            animator.SetBool("IsWalking", false);
-        }
+        if (animator != null) animator.SetBool("IsWalking", false);
 
-        if (!alreadyAttacked)
-        {
-            StartCoroutine(HandleAttack());
-        }
+        if (!alreadyAttacked) StartCoroutine(HandleAttack());
     }
 
     protected abstract IEnumerator HandleAttack(); // Método abstracto para que cada enemigo implemente su ataque

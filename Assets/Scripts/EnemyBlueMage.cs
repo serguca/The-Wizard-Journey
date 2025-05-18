@@ -9,28 +9,16 @@ public class EnemyBlueMage : Enemy
     protected override IEnumerator HandleAttack()
     {
         alreadyAttacked = true;
+        if (animator != null) animator.SetTrigger("Shoot");
+        yield return new WaitForSeconds(0.5f);
 
-        // Activar la animación de disparo
-        if (animator != null)
-        {
-            animator.SetTrigger("Shoot");
-        }
-
-        yield return new WaitForSeconds(0.5f); // Esperar antes de lanzar el proyectil
-
-        // Lanzar el proyectil
         if (spellManager != null && shootPoint != null)
         {
             Vector3 direction = (player.position - shootPoint.position).normalized;
             spellManager.LaunchProjectile(shootPoint.position, direction);
         }
 
-        if (animator != null)
-        {
-            animator.SetTrigger("Idle"); // Activar el trigger
-        }
-
-
+        if (animator != null) animator.SetTrigger("Idle");
         yield return new WaitForSeconds(timeBetweenAttacks);
         alreadyAttacked = false;
     }

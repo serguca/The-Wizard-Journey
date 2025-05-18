@@ -115,10 +115,7 @@ public class EnemyAi : MonoBehaviour
         alreadyAttacked = true;
 
         // Activar la animación de disparo
-        if (animator != null)
-        {
-            animator.SetTrigger("Shoot"); // Activar el trigger
-        }
+        if (animator != null) animator.SetTrigger("Shoot"); // Activar el trigger
 
         yield return new WaitForSeconds(0.5f); // Esperar un tiempo antes de lanzar el proyectil
 
@@ -126,10 +123,7 @@ public class EnemyAi : MonoBehaviour
         ShootProjectile();
 
         // Volver a la animación de Idle
-        if (animator != null)
-        {
-            animator.SetTrigger("Idle"); // Activar el trigger
-        }
+        if (animator != null) animator.SetTrigger("Idle");
 
         // Esperar el tiempo entre ataques
         yield return new WaitForSeconds(timeBetweenAttacks); // Resto del tiempo de espera
