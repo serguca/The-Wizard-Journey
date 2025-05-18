@@ -9,7 +9,8 @@ public abstract class Enemy : MonoBehaviour
     protected NavMeshAgent agent;
     protected Transform player;
     [SerializeField] private HorizontalProgressBar healthBar;
-    [SerializeField] protected float health;
+    private float health;
+    [SerializeField] protected float maxHealth;
     [SerializeField] private bool hitCooldownActive = false;
     private bool isDead = false;
 
@@ -33,6 +34,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void Awake()
     {
+        health = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -50,7 +52,6 @@ public abstract class Enemy : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
-        healthBar.SetProgress(health / 30f); // Actualiza la barra de salud
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,9 +60,7 @@ public abstract class Enemy : MonoBehaviour
         if (other.CompareTag("Hit"))
         {
             if (animator != null) animator.SetTrigger("Hit");
-            health -= 10f;
-            //hitCooldownActive = true;
-            //ColliderCooldown();
+            TakeDamage(10f);
             Debug.Log("El enemigo ha sido golpeado por un proyectil.");
         }
     }
@@ -72,14 +71,31 @@ public abstract class Enemy : MonoBehaviour
         hitCooldownActive = false;
     }
 
+    private void TakeDamage(float damage)
+    {
+        hitCooldownActive = true;
+        StartCoroutine(ColliderCooldown());
+        health -= damage;
+        healthBar.SetProgress(health / maxHealth); // Actualiza la barra de salud
+        if (health <= 0f && !isDead) Die();
+    }
+
     private void Die()
     {
         isDead = true;
 
         if (animator != null) animator.SetTrigger("Death");
         if (col != null) col.enabled = false;
+        if (agent != null) agent.enabled = false;
 
-        StartCoroutine(DisappearAfterSeconds(30f)); // Cambia 3f por los segundos que quieras
+        StartCoroutine(DisappearAfterSeconds(30f));
+        StartCoroutine(healthBarDissapear());
+    }
+
+    private IEnumerator healthBarDissapear()
+    {
+        yield return new WaitForSeconds(1f);
+        healthBar.gameObject.SetActive(false);
     }
 
     private IEnumerator DisappearAfterSeconds(float seconds)
