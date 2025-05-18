@@ -39,6 +39,7 @@ public abstract class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
+
     }
 
     private void Update()
