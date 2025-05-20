@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBlueMage : Enemy
 {   
@@ -19,7 +20,6 @@ public class EnemyBlueMage : Enemy
         }
 
         if (animator != null) animator.SetTrigger("Idle");
-        yield return new WaitForSeconds(timeBetweenAttacks);
         alreadyAttacked = false;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySkeleton : Enemy
 {
@@ -11,7 +12,11 @@ public class EnemySkeleton : Enemy
 
 
         if (animator != null) animator.SetTrigger("Idle");
+        agent.isStopped = true;
+        animator.SetTrigger("Dizzy");
         yield return new WaitForSeconds(timeBetweenAttacks);
+        agent.isStopped = false;
         alreadyAttacked = false;
     }
+
 }

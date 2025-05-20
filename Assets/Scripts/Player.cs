@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using MagicPigGames;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -15,12 +16,16 @@ public class Player : MonoBehaviour
     [SerializeField] private SpellManager spellManager;
     [SerializeField] private Transform shootPoint;
 
+    [SerializeField] private Transform deathRoom;
+
     private bool isDead = false;
 
     private GameObject deathScreen;
 
 
-    void Start(){
+    void Start()
+    {
+        Component FPSController = GetComponent<FirstPersonController>(); 
         health = maxHealth;
         deathScreen = GameObject.Find("DeathScreen"); // Asegúrate de que el nombre coincida exactamente
         if (deathScreen != null) deathScreen.SetActive(false); // Oculta al inicio
@@ -58,16 +63,20 @@ public class Player : MonoBehaviour
         StartCoroutine(ColliderCooldown());
         health -= damage;
         healthBar.SetProgress(health / maxHealth); // Actualiza la barra de salud
-        if (health <= 0f && !isDead) Die();
+        if (health <= 0f && !isDead)
+        {
+            isDead = true;
+            Die();
+        } 
     }
 
 
     private void Die()
     {
-        isDead = true;
-
-            if (deathScreen != null)
-        deathScreen.SetActive(true);
+        //isDead = true;
+        if (deathScreen != null) deathScreen.SetActive(true);
+        GetComponent<FirstPersonController>().enabled = false;
+        transform.position = deathRoom.position; // Teletransporta al jugador a la habitación de muerte
     }
 
 }

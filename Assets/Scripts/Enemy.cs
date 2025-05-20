@@ -12,6 +12,7 @@ public abstract class Enemy : MonoBehaviour
     private float health;
     [SerializeField] protected float maxHealth;
     [SerializeField] private bool hitCooldownActive = false;
+    [SerializeField] private bool attackCooldownActive = false;
     private bool isDead = false;
 
     [SerializeField] protected LayerMask whatsIsGround, whatsIsPlayer;
@@ -24,7 +25,7 @@ public abstract class Enemy : MonoBehaviour
 
     [Header("Attacking")]
     [SerializeField] protected float timeBetweenAttacks = 2f;
-    protected bool alreadyAttacked;
+    protected bool alreadyAttacked = false;
 
     [Header("States")]
     [SerializeField] protected float sightRange, attackRange;
@@ -48,6 +49,8 @@ public abstract class Enemy : MonoBehaviour
         if (isDead) return; // Bloquea toda la lógica si está muerto
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatsIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatsIsPlayer);
+
+        if (alreadyAttacked) return; //TODO: hacer esto mejor
 
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
