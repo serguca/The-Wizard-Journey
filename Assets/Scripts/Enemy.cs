@@ -25,13 +25,12 @@ public abstract class Enemy : MonoBehaviour
     [Header("Attacking")]
     [SerializeField] protected float timeBetweenAttacks = 2f;
     protected bool alreadyAttacked = false;
-
     [Header("States")]
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
-
     protected Animator animator;
-
+    [SerializeField] private float damage = 10f;
+    public float GetDamage() { return damage; }
     private void Awake()
     {
         health = maxHealth;
@@ -155,4 +154,5 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected abstract IEnumerator HandleAttack(); // Método abstracto para que cada enemigo implemente su ataque
+
 }

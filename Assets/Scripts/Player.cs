@@ -44,13 +44,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (hitCooldownActive) return;
-        if (other.CompareTag("Hit"))
-        {
-            TakeDamage(10);
-            Debug.Log("Player hit! Health: " + health);
-            StartCoroutine(ColliderCooldown());
-        }
+        if (!hitCooldownActive) StartCoroutine(ColliderCooldown());
     }
 
     private IEnumerator ColliderCooldown()
@@ -59,17 +53,23 @@ public class Player : MonoBehaviour
         hitCooldownActive = false;
     }
 
-    private void TakeDamage(float damage){
+    private void TakeDamage(float damage)
+    {
         Debug.Log("Evento Recibido damage: " + damage);
-        hitCooldownActive = true;
-        StartCoroutine(ColliderCooldown());
-        health -= damage;
-        healthBar.SetProgress(health / maxHealth); // Actualiza la barra de salud
+        if (health > 0)
+        {
+            hitCooldownActive = true;
+            StartCoroutine(ColliderCooldown());
+            health -= damage;
+            if (health < 0) health = 0;
+            healthBar.SetProgress(health / maxHealth); // Actualiza la barra de salud
+        }
         if (health <= 0f && !isDead)
         {
             isDead = true;
             Die();
-        } 
+        }
+    
     }
 
 

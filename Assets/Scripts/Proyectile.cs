@@ -45,7 +45,7 @@ public class Proyectile : MonoBehaviour
         MakeExplosion();
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Evento enviado");
+            Debug.Log("Proyectile: evento enviado");
             EventManager.TriggerDamagePlayer(10f);
         }
         gameObject.SetActive(false);

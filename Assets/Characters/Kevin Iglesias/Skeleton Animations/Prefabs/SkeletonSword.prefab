@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4968872607988292219}
   - component: {fileID: 8312273661327349214}
   - component: {fileID: 6106836646656762132}
+  - component: {fileID: 7428879598442337583}
   m_Layer: 0
   m_Name: SkeletonSword
   m_TagString: Untagged
@@ -86,3 +87,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7428879598442337583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5746359903908249793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b96c66729e8ae24d933325e562d68a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
