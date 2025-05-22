@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using MagicPigGames;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -22,9 +23,9 @@ public class Player : MonoBehaviour
 
     private GameObject deathScreen;
 
-
     void Start()
     {
+        EventManager.DamagePlayer += TakeDamage; // Suscribirse al evento de daño
         Component FPSController = GetComponent<FirstPersonController>(); 
         health = maxHealth;
         deathScreen = GameObject.Find("DeathScreen"); // Asegúrate de que el nombre coincida exactamente
@@ -43,7 +44,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(hitCooldownActive) return;
+        if (hitCooldownActive) return;
         if (other.CompareTag("Hit"))
         {
             TakeDamage(10);
@@ -59,6 +60,7 @@ public class Player : MonoBehaviour
     }
 
     private void TakeDamage(float damage){
+        Debug.Log("Evento Recibido damage: " + damage);
         hitCooldownActive = true;
         StartCoroutine(ColliderCooldown());
         health -= damage;
@@ -77,6 +79,23 @@ public class Player : MonoBehaviour
         if (deathScreen != null) deathScreen.SetActive(true);
         GetComponent<FirstPersonController>().enabled = false;
         transform.position = deathRoom.position; // Teletransporta al jugador a la habitación de muerte
+        StartCoroutine(WaitForKeyPressAndRestart());
     }
 
+    private IEnumerator WaitForKeyPressAndRestart()
+    {
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                break;
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+            yield return null; // Espera un frame antes de volver a comprobar
+        }
+    }
 }

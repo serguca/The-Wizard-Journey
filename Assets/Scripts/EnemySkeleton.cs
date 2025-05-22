@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public class EnemySkeleton : Enemy
 {
+    [SerializeField] private float attackDuration = 5f; // Duración del ataque
     protected override IEnumerator HandleAttack()
     {
         alreadyAttacked = true;
@@ -11,8 +12,9 @@ public class EnemySkeleton : Enemy
         yield return new WaitForSeconds(0.5f);
 
 
-        if (animator != null) animator.SetTrigger("Idle");
+        //if (animator != null) animator.SetTrigger("Idle");
         agent.isStopped = true;
+        //yield return new WaitForSeconds(attackDuration);
         animator.SetTrigger("Dizzy");
         yield return new WaitForSeconds(timeBetweenAttacks);
         agent.isStopped = false;

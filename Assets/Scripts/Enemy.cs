@@ -12,7 +12,6 @@ public abstract class Enemy : MonoBehaviour
     private float health;
     [SerializeField] protected float maxHealth;
     [SerializeField] private bool hitCooldownActive = false;
-    [SerializeField] private bool attackCooldownActive = false;
     private bool isDead = false;
 
     [SerializeField] protected LayerMask whatsIsGround, whatsIsPlayer;

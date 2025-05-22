@@ -43,6 +43,11 @@ public class Proyectile : MonoBehaviour
     void OnTriggerEnter(Collider collision)
     {
         MakeExplosion();
+        if (collision.CompareTag("Player"))
+        {
+            Debug.Log("Evento enviado");
+            EventManager.TriggerDamagePlayer(10f);
+        }
         gameObject.SetActive(false);
     }
 
