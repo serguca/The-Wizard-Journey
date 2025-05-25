@@ -8919,7 +8919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3765111289364014008, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
       propertyPath: damage
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3765111289364014008, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
       propertyPath: deathRoom
@@ -10930,7 +10930,7 @@ LookAtConstraint:
   m_Roll: 0
   m_WorldUpObject: {fileID: 0}
   m_UseUpObject: 0
-  m_Active: 0
+  m_Active: 1
   m_IsLocked: 1
   m_Sources:
   - sourceTransform: {fileID: 671746223}
@@ -11957,6 +11957,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2295548175869194012, guid: 0b998f3e33bd1da4984893aa3dcf2207, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99909544
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295548175869194012, guid: 0b998f3e33bd1da4984893aa3dcf2207, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.042434603
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295548175869194012, guid: 0b998f3e33bd1da4984893aa3dcf2207, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0027611495
+      objectReference: {fileID: 0}
+    - target: {fileID: 2295548175869194012, guid: 0b998f3e33bd1da4984893aa3dcf2207, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0000000034197003
+      objectReference: {fileID: 0}
     - target: {fileID: 2295548175869194015, guid: 0b998f3e33bd1da4984893aa3dcf2207, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -12119,6 +12135,10 @@ PrefabInstance:
     - target: {fileID: 4520524040402820494, guid: 2fae6bc6d153b3d4595b19ce68ce717c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5570719474064753883, guid: 2fae6bc6d153b3d4595b19ce68ce717c, type: 3}
+      propertyPath: m_Acceleration
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5820227389840367833, guid: 2fae6bc6d153b3d4595b19ce68ce717c, type: 3}
       propertyPath: m_Sources.Array.data[0].sourceTransform

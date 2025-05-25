@@ -29,8 +29,6 @@ public abstract class Enemy : Character
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
     protected Animator animator;
-    // [SerializeField] private float damage = 10f;
-    // public float GetDamage() { return damage; }
     private void Awake()
     {
         EventManager.DamageEnemy += TakeDamage;
@@ -45,14 +43,14 @@ public abstract class Enemy : Character
     private void Update()
     {
         if (isDead) return; // Bloquea toda la lógica si está muerto excepto los eventos
-        if (health <= 0f) Die();
+        //if (health <= 0f) Die();
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatsIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatsIsPlayer);
 
         if (alreadyAttacked) return; //TODO: hacer esto mejor
 
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
-        if (playerInSightRange && !playerInAttackRange && !agent.isStopped) ChasePlayer();
+        if (playerInSightRange && !playerInAttackRange) StartCoroutine(ChasePlayer());
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
     }
@@ -81,11 +79,12 @@ public abstract class Enemy : Character
 
     private IEnumerator ResumeChaseAfterDelay(float delay)
     {
+        if (isDead) yield break;
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
         yield return new WaitForSeconds(delay);
-        animator.SetTrigger("Idle");
-        if (agent!=null) agent.isStopped = false;
+        //if (agent!=null) animator.SetTrigger("Idle");
+        if (agent.isActiveAndEnabled) agent.isStopped = false;
     }
 
     private void setProgressBar(float health)
@@ -114,7 +113,8 @@ public abstract class Enemy : Character
         if (animator != null)
         {
             ResetAllTriggers();
-            animator.SetTrigger("Death");
+            animator.SetTrigger("Death"); // Usa trigger, no bool
+            StartCoroutine(DisableAnimator());
         }
         if (col != null) col.enabled = false;
         if (agent != null) agent.enabled = false;
@@ -127,13 +127,18 @@ public abstract class Enemy : Character
     {
         yield return new WaitForSeconds(1f);
         healthBar.gameObject.SetActive(false);
-        animator.enabled = false;
     }
 
     private IEnumerator DisappearAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         gameObject.SetActive(false);
+    }
+
+    private IEnumerator DisableAnimator()
+    {
+        yield return new WaitForSeconds(10f);
+        if (animator != null) animator.enabled = false;
     }
 
     private void Patrolling()
@@ -159,24 +164,37 @@ public abstract class Enemy : Character
             walkPointSet = true;
     }
 
-    private void ChasePlayer()
+    private IEnumerator ChasePlayer()
     {
+        yield return new WaitForSeconds(0.4f);
+        if (animator != null) animator.SetTrigger("Walking");
+        StartCoroutine(LookPlayer());
+        yield return new WaitForSeconds(0.1f);
         agent.SetDestination(player.position);
-        if (animator != null) animator.SetBool("IsWalking", true);
 
-        LookPlayer();
     }
 
-    private void LookPlayer()
+    private IEnumerator LookPlayer()
     {
+        float duration = 0.1f;
+        float elapsed = 0f;
         Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, player.position.z);
-        transform.LookAt(targetPosition);
+        Quaternion startRotation = transform.rotation;
+        Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+
+        while (elapsed < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.rotation = targetRotation;
     }
 
 
     private void AttackPlayer()
     {
-        LookPlayer();
+        StartCoroutine(LookPlayer());
         agent.SetDestination(transform.position);
         if (animator != null) animator.SetBool("IsWalking", false);
 

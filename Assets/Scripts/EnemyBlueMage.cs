@@ -11,7 +11,7 @@ public class EnemyBlueMage : Enemy
     {
         alreadyAttacked = true;
         if (animator != null) animator.SetTrigger("Shoot");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         if (spellManager != null && shootPoint != null)
         {
