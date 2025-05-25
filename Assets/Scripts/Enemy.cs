@@ -52,23 +52,13 @@ public abstract class Enemy : Character
         if (alreadyAttacked) return; //TODO: hacer esto mejor
 
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if (playerInSightRange && !playerInAttackRange && !agent.isStopped) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
     }
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if(hitCooldownActive) return;
-    //     if (other.CompareTag("Hit"))
-    //     {
-    //         if (animator != null) animator.SetTrigger("Hit");
-    //     }
-    // }
-
     private IEnumerator ColliderCooldown()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         hitCooldownActive = false;
     }
 
@@ -76,18 +66,34 @@ public abstract class Enemy : Character
     {
         if (hitCooldownActive || isDead) return;
         hitCooldownActive = true;
-        if (animator != null) animator.SetTrigger("Hit");
+
+        animator.SetBool("IsWalking", false);
+        animator.SetTrigger("Hit");
+
+
         StartCoroutine(ColliderCooldown());
+        StartCoroutine(ResumeChaseAfterDelay(2f));
+        
         health -= damage;
         setProgressBar(health);
         if (health <= 0f && !isDead) Die();
+    }
+
+    private IEnumerator ResumeChaseAfterDelay(float delay)
+    {
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+        yield return new WaitForSeconds(delay);
+        animator.SetTrigger("Idle");
+        if (agent!=null) agent.isStopped = false;
     }
 
     private void setProgressBar(float health)
     {
         if (health > 0)
             healthBar.SetProgress(health / maxHealth);
-        else healthBar.SetProgress(0);
+        else
+            healthBar.SetProgress(0);
     }
 
     private void ResetAllTriggers()
@@ -121,6 +127,7 @@ public abstract class Enemy : Character
     {
         yield return new WaitForSeconds(1f);
         healthBar.gameObject.SetActive(false);
+        animator.enabled = false;
     }
 
     private IEnumerator DisappearAfterSeconds(float seconds)

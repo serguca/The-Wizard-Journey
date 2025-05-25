@@ -8905,13 +8905,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 164
       objectReference: {fileID: 0}
+    - target: {fileID: 1693518540098140829, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 657.7712
+      objectReference: {fileID: 0}
+    - target: {fileID: 1693518540098140829, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.023854
+      objectReference: {fileID: 0}
     - target: {fileID: 2909844758814494055, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
       propertyPath: m_Color.a
       value: 0.9607843
       objectReference: {fileID: 0}
     - target: {fileID: 3765111289364014008, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
       propertyPath: damage
-      value: 30
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3765111289364014008, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
       propertyPath: deathRoom
@@ -9019,7 +9027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7635478758662214666, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8186506779855633770, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
@@ -12118,7 +12126,7 @@ PrefabInstance:
       objectReference: {fileID: 671746223}
     - target: {fileID: 8055465332360160318, guid: 2fae6bc6d153b3d4595b19ce68ce717c, type: 3}
       propertyPath: timeBetweenAttacks
-      value: 1.5
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
