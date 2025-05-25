@@ -149,6 +149,10 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 8055465332360160318}
+    - target: {fileID: 1030947641254298260, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 8055465332360160318}
     - target: {fileID: 2803820806472684270, guid: fcc7e72ef9922724c9dbe91fe1141293, type: 3}
       propertyPath: m_Name
       value: SkeletonObject Variant
@@ -319,6 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1211fe7f031a28646b3ff300f909e509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
   healthBar: {fileID: 4227526724480601966}
   maxHealth: 20
   hitCooldownActive: 0

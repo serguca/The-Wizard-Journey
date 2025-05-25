@@ -1,11 +1,12 @@
+using System;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour {
-    [SerializeField] private Enemy enemy;
+    [SerializeField] private Character character;
     private float damage;
     void Start()
     {
-        damage = enemy.GetDamage();
+        damage = character.GetDamage();
     }
 
     void OnTriggerEnter(Collider collision)

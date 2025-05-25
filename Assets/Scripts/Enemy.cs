@@ -3,7 +3,7 @@ using MagicPigGames;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : Character
 {
     protected Collider col;
     protected NavMeshAgent agent;
@@ -12,7 +12,7 @@ public abstract class Enemy : MonoBehaviour
     private float health;
     [SerializeField] protected float maxHealth;
     [SerializeField] private bool hitCooldownActive = false;
-    private bool isDead = false;
+    protected bool isDead = false;
 
     [SerializeField] protected LayerMask whatsIsGround, whatsIsPlayer;
 
@@ -29,10 +29,11 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
     protected Animator animator;
-    [SerializeField] private float damage = 10f;
-    public float GetDamage() { return damage; }
+    // [SerializeField] private float damage = 10f;
+    // public float GetDamage() { return damage; }
     private void Awake()
     {
+        EventManager.DamageEnemy += TakeDamage;
         health = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -43,8 +44,8 @@ public abstract class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0f && !isDead) Die();
-        if (isDead) return; // Bloquea toda la lógica si está muerto
+        if (isDead) return; // Bloquea toda la lógica si está muerto excepto los eventos
+        if (health <= 0f) Die();
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatsIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatsIsPlayer);
 
@@ -56,37 +57,59 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(hitCooldownActive) return;
-        if (other.CompareTag("Hit"))
-        {
-            if (animator != null) animator.SetTrigger("Hit");
-            TakeDamage(10f);
-            Debug.Log("El enemigo ha sido golpeado por un proyectil.");
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if(hitCooldownActive) return;
+    //     if (other.CompareTag("Hit"))
+    //     {
+    //         if (animator != null) animator.SetTrigger("Hit");
+    //     }
+    // }
 
     private IEnumerator ColliderCooldown()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         hitCooldownActive = false;
     }
 
     private void TakeDamage(float damage)
     {
+        if (hitCooldownActive || isDead) return;
         hitCooldownActive = true;
+        if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
         health -= damage;
-        healthBar.SetProgress(health / maxHealth); // Actualiza la barra de salud
+        setProgressBar(health);
         if (health <= 0f && !isDead) Die();
+    }
+
+    private void setProgressBar(float health)
+    {
+        if (health > 0)
+            healthBar.SetProgress(health / maxHealth);
+        else healthBar.SetProgress(0);
+    }
+
+    private void ResetAllTriggers()
+    {
+        if (animator == null) return;
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.type == AnimatorControllerParameterType.Trigger)
+            {
+                animator.ResetTrigger(param.name);
+            }
+        }
     }
 
     private void Die()
     {
         isDead = true;
-
-        if (animator != null) animator.SetTrigger("Death");
+        if (animator != null)
+        {
+            ResetAllTriggers();
+            animator.SetTrigger("Death");
+        }
         if (col != null) col.enabled = false;
         if (agent != null) agent.enabled = false;
 

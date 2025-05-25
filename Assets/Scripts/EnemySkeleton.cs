@@ -9,15 +9,19 @@ public class EnemySkeleton : Enemy
     {
         alreadyAttacked = true;
         if (animator != null) animator.SetTrigger("Attack");
+
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
+            agent.isStopped = true;
+
         yield return new WaitForSeconds(attackDuration);
-
-
         //if (animator != null) animator.SetTrigger("Idle");
-        agent.isStopped = true;
+
         //yield return new WaitForSeconds(attackDuration);
         animator.SetTrigger("Dizzy");
-        yield return new WaitForSeconds(timeBetweenAttacks);
-        agent.isStopped = false;
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
+            agent.isStopped = false;
+
+        if (animator != null && !isDead) animator.SetTrigger("Idle");
         alreadyAttacked = false;
     }
 

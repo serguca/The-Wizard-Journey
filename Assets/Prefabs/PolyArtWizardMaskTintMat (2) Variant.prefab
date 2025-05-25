@@ -444,6 +444,7 @@ MonoBehaviour:
   timeBetweenAttacks: 2
   sightRange: 20
   attackRange: 8
+  damage: 10
   shootPoint: {fileID: 470515129767323366}
   spellManager: {fileID: 0}
 --- !u!4 &3983991026679812127 stripped

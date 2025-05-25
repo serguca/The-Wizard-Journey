@@ -7,6 +7,7 @@ public class Proyectile : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifetime = 3f;
     private float elapsedTime = 0f;
+    private float damage;
 
     private SpellManager spellManager; // Referencia al HechizoManager
 
@@ -14,8 +15,9 @@ public class Proyectile : MonoBehaviour
     {
     }
 
-    public void Initialize(SpellManager manager)
+    public void Initialize(SpellManager manager, float damage)
     {
+        this.damage = damage; // Guardar el daño del proyectil
         spellManager = manager; // Cachear la referencia al HechizoManager
     }
 
@@ -46,7 +48,12 @@ public class Proyectile : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Proyectile: evento enviado");
-            EventManager.TriggerDamagePlayer(10f);
+            EventManager.TriggerDamagePlayer(damage);
+        }
+        else if (collision.CompareTag("Enemy"))
+        {
+            Debug.Log("Proyectile: golpea a un enemigo");
+            EventManager.TriggerDamageEnemy(damage);
         }
         gameObject.SetActive(false);
     }

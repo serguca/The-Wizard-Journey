@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using MagicPigGames;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     [SerializeField] private float maxHealth = 100f; // Salud del jugador
     private float health = 100f; // Salud del jugador
@@ -21,11 +22,13 @@ public class Player : MonoBehaviour
 
     private bool isDead = false;
 
-    private GameObject deathScreen;
+    private GameObject deathScreen; //todo: hacerlo con eventos
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         EventManager.DamagePlayer += TakeDamage; // Suscribirse al evento de daño
+        spellManager.SetDamage(damage);
         Component FPSController = GetComponent<FirstPersonController>(); 
         health = maxHealth;
         deathScreen = GameObject.Find("DeathScreen"); // Asegúrate de que el nombre coincida exactamente
@@ -34,11 +37,10 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        //healthBar.SetProgress(health / 100f); // Actualiza la barra de salud
         if(isDead) return; // Bloquea toda la lógica si está muerto
         if (Input.GetMouseButtonDown(0))
         {
-            spellManager.LaunchProjectile(shootPoint.position, shootPoint.forward);
+            spellManager.LaunchProjectile(shootPoint.position, shootPoint.forward, damage);
         }
     }
 
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour
             isDead = true;
             Die();
         }
-    
+
     }
 
 

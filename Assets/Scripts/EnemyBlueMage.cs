@@ -15,11 +15,12 @@ public class EnemyBlueMage : Enemy
 
         if (spellManager != null && shootPoint != null)
         {
+            spellManager.SetDamage(damage);
             Vector3 direction = (player.position - shootPoint.position).normalized;
-            spellManager.LaunchProjectile(shootPoint.position, direction);
+            spellManager.LaunchProjectile(shootPoint.position, direction, damage);
         }
 
-        if (animator != null) animator.SetTrigger("Idle");
+        if (animator != null && !isDead) animator.SetTrigger("Idle");
         alreadyAttacked = false;
     }
 }

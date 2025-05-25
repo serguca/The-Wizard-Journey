@@ -7,6 +7,7 @@ public class SpellManager : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private GameObject explotionPrefab;
+    private float damage;
 
     [Header("Pool Settings")]
     [SerializeField] private int poolSize = 10;
@@ -14,8 +15,14 @@ public class SpellManager : MonoBehaviour
     private readonly List<Proyectile> projectilePool = new();
     private readonly List<Explotion> explotionPool = new();
 
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
+    }
+
     private void Awake()
     {
+        //damage = enemy.GetDamage();
         InitializeProjectilePool();
         InitializeExplotionPool();
     }
@@ -31,7 +38,7 @@ public class SpellManager : MonoBehaviour
             projectilePool.Add(projectile);
 
             // Inyectamos referencia del manager
-            projectile.Initialize(this);
+            projectile.Initialize(this, damage);
         }
     }
 
@@ -67,17 +74,17 @@ public class SpellManager : MonoBehaviour
         return null;
     }
 
-    public void LaunchProjectile(Vector3 position, Vector3 direction)
+    public void LaunchProjectile(Vector3 position, Vector3 direction, float damage)
     {
         Proyectile projectile = GetProjectile();
 
         if (projectile != null)
         {
             GameObject go = projectile.gameObject;
+            projectile.Initialize(this, damage);
             go.transform.position = position;
             go.transform.rotation = Quaternion.LookRotation(direction);
             go.SetActive(true);
-
             projectile.Launch(direction);
         }
     }
