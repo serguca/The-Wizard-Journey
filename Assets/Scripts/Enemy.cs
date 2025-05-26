@@ -29,17 +29,14 @@ public abstract class Enemy : Character
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
     protected Animator animator;
-    // [SerializeField] private float damage = 10f;
-    // public float GetDamage() { return damage; }
     private void Awake()
     {
-        EventManager.DamageEnemy += TakeDamage;
+        EventManager.DamageEnemy += (damage) => StartCoroutine(TakeDamage(damage));
         health = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
-
     }
 
     private void Update()
@@ -49,11 +46,11 @@ public abstract class Enemy : Character
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatsIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatsIsPlayer);
 
-        if (alreadyAttacked) return; //TODO: hacer esto mejor
+        if (alreadyAttacked || hitCooldownActive) return; //TODO: hacer esto mejor
 
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
 
     }
 
@@ -68,22 +65,25 @@ public abstract class Enemy : Character
 
     private IEnumerator ColliderCooldown()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         hitCooldownActive = false;
     }
 
-    private void TakeDamage(float damage)
+    private IEnumerator TakeDamage(float damage)
     {
-        if (hitCooldownActive || isDead) return;
+        if (hitCooldownActive || isDead) yield return null;
         hitCooldownActive = true;
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
         health -= damage;
-        setProgressBar(health);
+        SetProgressBar(health);
         if (health <= 0f && !isDead) Die();
+        agent.isStopped = true;
+        yield return new WaitForSeconds(1f);
+        animator.SetTrigger("Idle");
     }
 
-    private void setProgressBar(float health)
+    private void SetProgressBar(float health)
     {
         if (health > 0)
             healthBar.SetProgress(health / maxHealth);
@@ -114,10 +114,10 @@ public abstract class Enemy : Character
         if (agent != null) agent.enabled = false;
 
         StartCoroutine(DisappearAfterSeconds(30f));
-        StartCoroutine(healthBarDissapear());
+        StartCoroutine(HealthBarDissapear());
     }
 
-    private IEnumerator healthBarDissapear()
+    private IEnumerator HealthBarDissapear()
     {
         yield return new WaitForSeconds(1f);
         healthBar.gameObject.SetActive(false);
@@ -154,8 +154,14 @@ public abstract class Enemy : Character
 
     private void ChasePlayer()
     {
+        Debug.Log("Chasing player");
         agent.SetDestination(player.position);
-        if (animator != null) animator.SetBool("IsWalking", true);
+        agent.isStopped = false;
+        if (animator != null)
+        {
+            ResetAllTriggers();
+            animator.SetBool("IsWalking", true);
+        } 
 
         LookPlayer();
     }

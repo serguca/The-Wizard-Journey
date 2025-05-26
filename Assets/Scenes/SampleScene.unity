@@ -8911,7 +8911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3765111289364014008, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
       propertyPath: damage
-      value: 30
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3765111289364014008, guid: 9fd9692a1e9e6a042b7d4f7ad33c26c3, type: 3}
       propertyPath: deathRoom
@@ -12116,6 +12116,10 @@ PrefabInstance:
       propertyPath: m_Sources.Array.data[0].sourceTransform
       value: 
       objectReference: {fileID: 671746223}
+    - target: {fileID: 8055465332360160318, guid: 2fae6bc6d153b3d4595b19ce68ce717c, type: 3}
+      propertyPath: attackDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8055465332360160318, guid: 2fae6bc6d153b3d4595b19ce68ce717c, type: 3}
       propertyPath: timeBetweenAttacks
       value: 1.5
