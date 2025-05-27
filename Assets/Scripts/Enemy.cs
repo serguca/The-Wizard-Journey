@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using MagicPigGames;
 using UnityEngine;
 using UnityEngine.AI;
@@ -54,33 +55,35 @@ public abstract class Enemy : Character
 
     }
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if(hitCooldownActive) return;
-    //     if (other.CompareTag("Hit"))
-    //     {
-    //         if (animator != null) animator.SetTrigger("Hit");
-    //     }
-    // }
-
     private IEnumerator ColliderCooldown()
     {
-        yield return new WaitForSeconds(1f);
+        float cooldownTime = 1f;
+        yield return new WaitForSeconds(cooldownTime);
         hitCooldownActive = false;
+        if (!isDead)
+        {
+            animator.SetTrigger("Idle"); //evitamos problemas isWalking, importante cooldown 1s
+            Debug.Log("Cooldown finished, idle");  
+        } 
     }
 
     private IEnumerator TakeDamage(float damage)
     {
-        if (hitCooldownActive || isDead) yield return null;
+        if (hitCooldownActive || isDead) yield break;
+
+        health -= damage;
+        SetProgressBar(health);
+
+        if (health <= 0f && !isDead)
+        {
+            Die();
+            yield break;
+        }
+
         hitCooldownActive = true;
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
-        health -= damage;
-        SetProgressBar(health);
-        if (health <= 0f && !isDead) Die();
         agent.isStopped = true;
-        yield return new WaitForSeconds(1f);
-        animator.SetTrigger("Idle");
     }
 
     private void SetProgressBar(float health)
@@ -108,6 +111,7 @@ public abstract class Enemy : Character
         if (animator != null)
         {
             ResetAllTriggers();
+            Debug.Log("MUERTEADO");
             animator.SetTrigger("Death");
         }
         if (col != null) col.enabled = false;

@@ -10,8 +10,10 @@ public class EnemyBlueMage : Enemy
     protected override IEnumerator HandleAttack()
     {
         alreadyAttacked = true;
+
         if (animator != null) animator.SetTrigger("Shoot");
-        yield return new WaitForSeconds(0.5f);
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
+            agent.isStopped = true;
 
         if (spellManager != null && shootPoint != null)
         {
@@ -19,6 +21,8 @@ public class EnemyBlueMage : Enemy
             Vector3 direction = (player.position - shootPoint.position).normalized;
             spellManager.LaunchProjectile(shootPoint.position, direction, damage);
         }
+
+        yield return new WaitForSeconds(1f);
 
         if (animator != null && !isDead) animator.SetTrigger("Idle");
         alreadyAttacked = false;

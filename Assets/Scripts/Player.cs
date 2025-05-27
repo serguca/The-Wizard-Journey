@@ -23,13 +23,16 @@ public class Player : Character
     private bool isDead = false;
 
     private GameObject deathScreen; //todo: hacerlo con eventos
+    
+    [SerializeField] private float shootCooldown = 0.25f; // Tiempo de cooldown entre disparos
+    private float lastShootTime = -999f;
 
     protected override void Start()
     {
         base.Start();
         EventManager.DamagePlayer += TakeDamage; // Suscribirse al evento de daño
         spellManager.SetDamage(damage);
-        Component FPSController = GetComponent<FirstPersonController>(); 
+        Component FPSController = GetComponent<FirstPersonController>();
         health = maxHealth;
         deathScreen = GameObject.Find("DeathScreen"); // Asegúrate de que el nombre coincida exactamente
         if (deathScreen != null) deathScreen.SetActive(false); // Oculta al inicio
@@ -38,9 +41,10 @@ public class Player : Character
     // Update is called once per frame
     void Update(){
         if(isDead) return; // Bloquea toda la lógica si está muerto
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastShootTime + shootCooldown)
         {
             spellManager.LaunchProjectile(shootPoint.position, shootPoint.forward, damage);
+            lastShootTime = Time.time;
         }
     }
 

@@ -14,10 +14,7 @@ public class EnemySkeleton : Enemy
             agent.isStopped = true;
 
         yield return new WaitForSeconds(attackDuration);
-        //if (animator != null) animator.SetTrigger("Idle");
 
-        //yield return new WaitForSeconds(attackDuration);
-        animator.SetTrigger("Dizzy");
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;
 
