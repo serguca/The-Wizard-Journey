@@ -1,20 +1,41 @@
 using System;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour {
-    [SerializeField] private Character character;
-    private float damage;
-    void Start()
+public class Weapon : MonoBehaviour
+{
+    private float damage = 10f; // Default damage value
+    private Collider col;
+    public void SetDamage(float damage)
     {
-        damage = character.GetDamage();
+        this.damage = damage;
     }
 
-    void OnTriggerEnter(Collider collision)
+    private void Start()
+    {
+        col = GetComponent<Collider>();
+        col.enabled = false;
+    }
+
+    private void Update()
+    {
+        Debug.Log($"[{col.enabled}]");
+    }
+
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Weapon: Evento enviado");
-            EventManager.TriggerDamagePlayer(damage);
+            if (damage > 0)
+            {
+                EventManager.TriggerDamagePlayer(damage);
+                Debug.Log($"Weapon: Evento enviado con daño: [{damage}]");
+            }
+            else Debug.LogError("Weapon: El daño es cero o negativo, no se envía el evento.");
         }
+    }
+    
+    public void SetColliderActive(bool active)
+    {
+        if (col != null) col.enabled = active;
     }
 }

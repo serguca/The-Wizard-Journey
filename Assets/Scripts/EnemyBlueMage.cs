@@ -3,17 +3,18 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyBlueMage : Enemy
-{   
+{
     [SerializeField] private Transform shootPoint;
     [SerializeField] private SpellManager spellManager;
-
     protected override IEnumerator HandleAttack()
     {
-        alreadyAttacked = true;
+        Debug.Log("EnemyBlueMage: HandleAttack called");
+        attackCooldownActive = true;
 
         if (animator != null) animator.SetTrigger("Shoot");
-        if (agent != null && agent.enabled && agent.isOnNavMesh)
-            agent.isStopped = true;
+        Debug.Log("EnemyBlueMage: Shoot animation triggered");
+        yield return new WaitForSeconds(0.5f); // Tiempo antes de disparar
+                ResetAllTriggers();
 
         if (spellManager != null && shootPoint != null)
         {
@@ -22,9 +23,10 @@ public class EnemyBlueMage : Enemy
             spellManager.LaunchProjectile(shootPoint.position, direction, damage);
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f); // Tiempo después de disparar
 
+        
         if (animator != null && !isDead) animator.SetTrigger("Idle");
-        alreadyAttacked = false;
+        attackCooldownActive = false;
     }
 }

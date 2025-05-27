@@ -1,36 +1,20 @@
 using System;
 using System.Collections;
 using MagicPigGames;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class Player : Character
 {
-    [SerializeField] private float maxHealth = 100f; // Salud del jugador
-    private float health = 100f; // Salud del jugador
-    
-    [SerializeField] private bool hitCooldownActive = false; // Bandera para evitar múltiples colisiones
-
-    [SerializeField] private VerticalProgressBar healthBar; // Referencia a la barra de salud
-
     [SerializeField] private SpellManager spellManager;
     [SerializeField] private Transform shootPoint;
-
     [SerializeField] private Transform deathRoom;
-
-    private bool isDead = false;
-
     private GameObject deathScreen; //todo: hacerlo con eventos
-    
-    [SerializeField] private float shootCooldown = 0.25f; // Tiempo de cooldown entre disparos
-    private float lastShootTime = -999f;
 
-    protected override void Start()
+    [SerializeField] private float attackCooldown = 0.25f; // Tiempo de cooldown entre disparos
+    private float lastShootTime = -999f;
+    private void Start()
     {
-        base.Start();
-        EventManager.DamagePlayer += TakeDamage; // Suscribirse al evento de daño
         spellManager.SetDamage(damage);
         Component FPSController = GetComponent<FirstPersonController>();
         health = maxHealth;
@@ -39,16 +23,28 @@ public class Player : Character
     }
 
     // Update is called once per frame
-    void Update(){
-        if(isDead) return; // Bloquea toda la lógica si está muerto
-        if (Input.GetMouseButtonDown(0) && Time.time >= lastShootTime + shootCooldown)
+    private void Update()
+    {
+        if (isDead) return; // Bloquea toda la lógica si está muerto
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastShootTime + attackCooldown)
         {
             spellManager.LaunchProjectile(shootPoint.position, shootPoint.forward, damage);
             lastShootTime = Time.time;
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnEnable()
+    {
+        EventManager.DamagePlayer += TakeDamage; // Suscribirse al evento de daño    
+    }
+
+        private void OnDisable()
+    {
+        EventManager.DamagePlayer -= TakeDamage; // Suscribirse al evento de daño    
+    }
+
+
+    private void OnTriggerEnter(Collider other)
     {
         if (!hitCooldownActive) StartCoroutine(ColliderCooldown());
     }
@@ -62,26 +58,22 @@ public class Player : Character
     private void TakeDamage(float damage)
     {
         Debug.Log("Evento Recibido damage: " + damage);
-        if (health > 0)
-        {
-            hitCooldownActive = true;
-            StartCoroutine(ColliderCooldown());
-            health -= damage;
-            if (health < 0) health = 0;
-            healthBar.SetProgress(health / maxHealth); // Actualiza la barra de salud
-        }
+        if (hitCooldownActive || isDead) return; // Evita daño si está en cooldown o muerto
+        health -= damage;
+        SetProgressBar(health);
         if (health <= 0f && !isDead)
         {
-            isDead = true;
             Die();
+            return;
         }
-
+        hitCooldownActive = true;
+        StartCoroutine(ColliderCooldown());
     }
 
 
     private void Die()
     {
-        //isDead = true;
+        isDead = true;
         if (deathScreen != null) deathScreen.SetActive(true);
         GetComponent<FirstPersonController>().enabled = false;
         transform.position = deathRoom.position; // Teletransporta al jugador a la habitación de muerte

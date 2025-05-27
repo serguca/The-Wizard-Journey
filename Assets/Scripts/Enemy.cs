@@ -3,56 +3,66 @@ using System.Runtime.CompilerServices;
 using MagicPigGames;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public abstract class Enemy : Character
 {
-    protected Collider col;
     protected NavMeshAgent agent;
     protected Transform player;
-    [SerializeField] private HorizontalProgressBar healthBar;
-    private float health;
-    [SerializeField] protected float maxHealth;
-    [SerializeField] private bool hitCooldownActive = false;
-    protected bool isDead = false;
+    private Collider col;
 
-    [SerializeField] protected LayerMask whatsIsGround, whatsIsPlayer;
+    private LayerMask whatsIsGround, whatsIsPlayer;
+    protected Animator animator;
 
     [Header("Patrolling")]
-    [SerializeField] protected bool doesItPatrols = false;
-    [SerializeField] protected float walkPointRange;
+    protected bool doesItPatrols = false;
     protected Vector3 walkPoint;
     protected bool walkPointSet;
 
     [Header("Attacking")]
     [SerializeField] protected float timeBetweenAttacks = 2f;
-    protected bool alreadyAttacked = false;
+    protected bool attackCooldownActive = false;
     [Header("States")]
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
-    protected Animator animator;
+
     private void Awake()
     {
-        EventManager.DamageEnemy += (damage) => StartCoroutine(TakeDamage(damage));
         health = maxHealth;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
+        whatsIsGround = LayerMask.GetMask("Ground");
+        whatsIsPlayer = LayerMask.GetMask("Player");
+    }
+
+    protected virtual void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    private void OnEnable()
+    {
+        EventManager.DamageEnemy += TakeDamage;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.DamageEnemy -= TakeDamage;
     }
 
     private void Update()
     {
         if (isDead) return; // Bloquea toda la lógica si está muerto excepto los eventos
         if (health <= 0f) Die();
+        if (attackCooldownActive || hitCooldownActive) return; //TODO: hacer esto mejor
+
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatsIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatsIsPlayer);
 
-        if (alreadyAttacked || hitCooldownActive) return; //TODO: hacer esto mejor
-
-        if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-
+        // if (!playerInSightRange && !playerInAttackRange) Patrolling();
     }
 
     private IEnumerator ColliderCooldown()
@@ -63,13 +73,13 @@ public abstract class Enemy : Character
         if (!isDead)
         {
             animator.SetTrigger("Idle"); //evitamos problemas isWalking, importante cooldown 1s
-            Debug.Log("Cooldown finished, idle");  
-        } 
+            Debug.Log("Cooldown finished, idle");
+        }
     }
 
-    private IEnumerator TakeDamage(float damage)
+    private void TakeDamage(float damage)
     {
-        if (hitCooldownActive || isDead) yield break;
+        if (hitCooldownActive || isDead) return;
 
         health -= damage;
         SetProgressBar(health);
@@ -77,7 +87,7 @@ public abstract class Enemy : Character
         if (health <= 0f && !isDead)
         {
             Die();
-            yield break;
+            return;
         }
 
         hitCooldownActive = true;
@@ -93,7 +103,7 @@ public abstract class Enemy : Character
         else healthBar.SetProgress(0);
     }
 
-    private void ResetAllTriggers()
+    protected void ResetAllTriggers()
     {
         if (animator == null) return;
         foreach (AnimatorControllerParameter param in animator.parameters)
@@ -110,20 +120,20 @@ public abstract class Enemy : Character
         isDead = true;
         if (animator != null)
         {
-            ResetAllTriggers();
             Debug.Log("MUERTEADO");
-            animator.SetTrigger("Death");
+            //ResetAllTriggers(); //ya no hace falta con crossfade
+            animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
         }
         if (col != null) col.enabled = false;
         if (agent != null) agent.enabled = false;
 
         StartCoroutine(DisappearAfterSeconds(30f));
-        StartCoroutine(HealthBarDissapear());
+        StartCoroutine(HealthBarDissapear(2f));
     }
 
-    private IEnumerator HealthBarDissapear()
+    private IEnumerator HealthBarDissapear(float time)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
         healthBar.gameObject.SetActive(false);
     }
 
@@ -147,6 +157,7 @@ public abstract class Enemy : Character
 
     private void SearchWalkPoint()
     {
+        float walkPointRange = 10f; // Rango de búsqueda de puntos de patrulla
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
 
@@ -158,32 +169,62 @@ public abstract class Enemy : Character
 
     private void ChasePlayer()
     {
-        Debug.Log("Chasing player");
         agent.SetDestination(player.position);
         agent.isStopped = false;
         if (animator != null)
         {
             ResetAllTriggers();
             animator.SetBool("IsWalking", true);
-        } 
+        }
 
-        LookPlayer();
+        SmoothLookAtPlayer();
     }
 
     private void LookPlayer()
     {
         Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, player.position.z);
-        transform.LookAt(targetPosition);
+        // transform.LookAt(targetPosition);
+        Quaternion rotacionDeseada = Quaternion.LookRotation(targetPosition);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotacionDeseada, 1 * Time.deltaTime);
+    }
+
+    protected bool IsFacingPlayer()
+    {
+        Vector3 directionToPlayer = player.position - transform.position;
+        directionToPlayer.y = 0; // Ignorar la diferencia en altura
+        Vector3 forward = transform.forward;
+
+        float angle = Vector3.Angle(forward, directionToPlayer);
+        return angle <= 15f;
     }
 
 
     private void AttackPlayer()
     {
-        LookPlayer();
+        // Primero gira hacia el jugador
+        SmoothLookAtPlayer();
+
+        // Detiene el movimiento
         agent.SetDestination(transform.position);
         if (animator != null) animator.SetBool("IsWalking", false);
 
-        if (!alreadyAttacked) StartCoroutine(HandleAttack());
+        // Solo ataca si está mirando al jugador y no está en cooldown
+        if (!attackCooldownActive && IsFacingPlayer())
+        {
+            StartCoroutine(HandleAttack());
+        }
+    }
+
+    private void SmoothLookAtPlayer()
+    {
+        Vector3 directionToPlayer = player.position - transform.position;
+        directionToPlayer.y = 0; // Ignorar la diferencia en altura
+
+        if (directionToPlayer != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 3f * Time.deltaTime);
+        }
     }
 
     protected abstract IEnumerator HandleAttack(); // Método abstracto para que cada enemigo implemente su ataque

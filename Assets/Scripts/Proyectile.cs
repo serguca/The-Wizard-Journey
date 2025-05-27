@@ -11,10 +11,6 @@ public class Proyectile : MonoBehaviour
 
     private SpellManager spellManager; // Referencia al HechizoManager
 
-    void Start()
-    {
-    }
-
     public void Initialize(SpellManager manager, float damage)
     {
         this.damage = damage; // Guardar el daño del proyectil
@@ -29,7 +25,7 @@ public class Proyectile : MonoBehaviour
         StartCoroutine(MoveProjectile(direction));
     }
 
-    IEnumerator MoveProjectile(Vector3 direction)
+    private IEnumerator MoveProjectile(Vector3 direction)
     {
         while (elapsedTime < lifetime)
         {
@@ -42,23 +38,23 @@ public class Proyectile : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collision)
     {
         MakeExplosion();
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Proyectile: evento enviado");
+            //Debug.Log("Proyectile: evento enviado");
             EventManager.TriggerDamagePlayer(damage);
         }
         else if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("Proyectile: golpea a un enemigo");
+            // Debug.Log("Proyectile: golpea a un enemigo");
             EventManager.TriggerDamageEnemy(damage);
         }
         gameObject.SetActive(false);
     }
 
-    void MakeExplosion()
+    private void MakeExplosion()
     {
         if (spellManager != null)
         {
@@ -73,7 +69,7 @@ public class Proyectile : MonoBehaviour
         }
     }
 
-    public void Reset()
+    private void Reset()
     {
         elapsedTime = 0f;
         StopAllCoroutines(); // Detener cualquier coroutine activa

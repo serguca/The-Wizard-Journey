@@ -1,9 +1,13 @@
+using MagicPigGames;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    // [SerializeField] protected float maxHealth = 100f;
-    // protected float health;
+    [SerializeField] protected float maxHealth = 100f;
+    [SerializeField] protected ProgressBar healthBar; // Referencia a la barra de salud
+    protected float health;
+    protected bool isDead = false;
+    protected bool hitCooldownActive = false; // Bandera para evitar múltiples colisiones
     [SerializeField] protected float damage = 10f;
 
     public float GetDamage()
@@ -11,15 +15,10 @@ public abstract class Character : MonoBehaviour
         return damage;
     }
 
-    // public virtual void TakeDamage(float amount)
-    // {
-    //     health -= amount;
-    //     if (health < 0) health = 0;
-    //     // Aquí puedes poner lógica común, como morir, actualizar UI, etc.
-    // }
-
-        protected virtual void Start()
+    protected void SetProgressBar(float health)
     {
-        Debug.Log("A");
+        if (health > 0)
+            healthBar.SetProgress(health / maxHealth);
+        else healthBar.SetProgress(0);
     }
 }
