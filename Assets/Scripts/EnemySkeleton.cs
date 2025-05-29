@@ -20,8 +20,13 @@ public class EnemySkeleton : Enemy
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;
 
-        yield return EnableColliderAndDisableAfterTime(1.25f);
-        yield return new WaitForSeconds(0.75f);
+
+        yield return new WaitForSeconds(0.5f);
+        weapon.SetColliderActive(true);
+        yield return new WaitForSeconds(0.5f);
+        weapon.SetColliderActive(false);
+        // yield return EnableColliderAndDisableAfterTime(1.25f);
+        yield return new WaitForSeconds(2f);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;

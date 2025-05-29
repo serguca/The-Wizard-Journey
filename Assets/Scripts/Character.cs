@@ -21,4 +21,7 @@ public abstract class Character : MonoBehaviour
             healthBar.SetProgress(health / maxHealth);
         else healthBar.SetProgress(0);
     }
+
+    public virtual void TakeDamage(float damage){}
+
 }

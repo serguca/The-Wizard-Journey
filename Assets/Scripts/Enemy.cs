@@ -41,15 +41,15 @@ public abstract class Enemy : Character
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private void OnEnable()
-    {
-        EventManager.DamageEnemy += TakeDamage;
-    }
+    // private void OnEnable()
+    // {
+    //     EventManager.DamageEnemy += TakeDamage;
+    // }
 
-    private void OnDisable()
-    {
-        EventManager.DamageEnemy -= TakeDamage;
-    }
+    // private void OnDisable()
+    // {
+    //     EventManager.DamageEnemy -= TakeDamage;
+    // }
 
     private void Update()
     {
@@ -77,7 +77,7 @@ public abstract class Enemy : Character
         }
     }
 
-    private void TakeDamage(float damage)
+    override public void TakeDamage(float damage)
     {
         if (hitCooldownActive || isDead) return;
 
@@ -94,13 +94,6 @@ public abstract class Enemy : Character
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
         agent.isStopped = true;
-    }
-
-    private void SetProgressBar(float health)
-    {
-        if (health > 0)
-            healthBar.SetProgress(health / maxHealth);
-        else healthBar.SetProgress(0);
     }
 
     protected void ResetAllTriggers()

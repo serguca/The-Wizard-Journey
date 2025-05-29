@@ -38,19 +38,15 @@ public class Proyectile : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider other)
     {
         MakeExplosion();
-        if (collision.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Enemy"))
         {
-            //Debug.Log("Proyectile: evento enviado");
-            EventManager.TriggerDamagePlayer(damage);
+            // Debug.Log("Proyectile: golpea al jugador");
+            other.GetComponent<Character>()?.TakeDamage(damage);
         }
-        else if (collision.CompareTag("Enemy"))
-        {
-            // Debug.Log("Proyectile: golpea a un enemigo");
-            EventManager.TriggerDamageEnemy(damage);
-        }
+
         gameObject.SetActive(false);
     }
 

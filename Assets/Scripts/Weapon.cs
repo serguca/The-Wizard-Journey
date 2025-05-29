@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
         {
             if (damage > 0)
             {
-                EventManager.TriggerDamagePlayer(damage);
+                collision.GetComponent<Character>()?.TakeDamage(damage);
                 Debug.Log($"Weapon: Evento enviado con daño: [{damage}]");
             }
             else Debug.LogError("Weapon: El daño es cero o negativo, no se envía el evento.");

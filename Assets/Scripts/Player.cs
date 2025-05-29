@@ -33,15 +33,15 @@ public class Player : Character
         }
     }
 
-    private void OnEnable()
-    {
-        EventManager.DamagePlayer += TakeDamage; // Suscribirse al evento de daño    
-    }
+    // private void OnEnable()
+    // {
+    //     EventManager.DamagePlayer += TakeDamage; // Suscribirse al evento de daño    
+    // }
 
-        private void OnDisable()
-    {
-        EventManager.DamagePlayer -= TakeDamage; // Suscribirse al evento de daño    
-    }
+    //     private void OnDisable()
+    // {
+    //     EventManager.DamagePlayer -= TakeDamage; // Suscribirse al evento de daño    
+    // }
 
 
     private void OnTriggerEnter(Collider other)
@@ -55,7 +55,7 @@ public class Player : Character
         hitCooldownActive = false;
     }
 
-    private void TakeDamage(float damage)
+    override public void TakeDamage(float damage)
     {
         Debug.Log("Evento Recibido damage: " + damage);
         if (hitCooldownActive || isDead) return; // Evita daño si está en cooldown o muerto
