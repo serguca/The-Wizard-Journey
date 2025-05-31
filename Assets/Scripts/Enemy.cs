@@ -57,12 +57,26 @@ public abstract class Enemy : Character
         if (health <= 0f) Die();
         if (attackCooldownActive || hitCooldownActive) return; //TODO: hacer esto mejor
 
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatsIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatsIsPlayer);
+        Vector3 directionToPlayer = player.position - transform.position;
+        float sqrDistance = directionToPlayer.sqrMagnitude;
+        
+        playerInSightRange = sqrDistance <= sightRange * sightRange;
+        playerInAttackRange = sqrDistance <= attackRange * attackRange;
 
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        // if (!playerInSightRange && !playerInAttackRange) Patrolling();
+        // Solo hacer raycast si está en rango
+        bool hasLineOfSight = playerInSightRange ? HasLineOfSightToPlayer() : false;
+        Debug.Log(hasLineOfSight);
+    
+        if (playerInSightRange && playerInAttackRange && hasLineOfSight) 
+            AttackPlayer();
+        else if (playerInSightRange && !playerInAttackRange && hasLineOfSight) 
+            ChasePlayer();
+        else
+        {
+            // Si pierde la línea de vista, puede patrullar o quedarse quieto
+            if (animator != null) animator.SetBool("IsWalking", false);
+            // if (!playerInSightRange && !playerInAttackRange) Patrolling();
+    }
     }
 
     private IEnumerator ColliderCooldown()
@@ -218,6 +232,29 @@ public abstract class Enemy : Character
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 3f * Time.deltaTime);
         }
+    }
+
+    private bool HasLineOfSightToPlayer()
+    {
+        if (player == null) return false;
+
+        Vector3 directionToPlayer = player.position - transform.position;
+        float distanceToPlayer = directionToPlayer.magnitude;
+            Debug.DrawRay(directionToPlayer, directionToPlayer.normalized * distanceToPlayer, Color.red, 0.1f);
+        // Raycast desde la posición del enemigo hacia el jugador
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, distanceToPlayer))
+        {
+            // Si el raycast golpea al jugador primero, hay línea de vista
+            if (hit.collider.CompareTag("Player"))
+            {
+                return true;
+            }
+            // Si golpea algo más primero (pared, obstáculo), no hay línea de vista
+            return false;
+        }
+
+        return false; // No golpeó nada
     }
 
     protected abstract IEnumerator HandleAttack(); // Método abstracto para que cada enemigo implemente su ataque
