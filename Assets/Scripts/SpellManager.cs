@@ -1,4 +1,5 @@
 // HechizoManager.cs
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class SpellManager : MonoBehaviour
     [Header("Pool Settings")]
     [SerializeField] private int poolSize = 10;
 
-    private readonly List<Proyectile> projectilePool = new();
+    private readonly List<Projectile> projectilePool = new();
     private readonly List<Explotion> explotionPool = new();
 
     public void SetDamage(float damage)
@@ -34,11 +35,11 @@ public class SpellManager : MonoBehaviour
             GameObject go = Instantiate(projectilePrefab);
             go.SetActive(false);
 
-            Proyectile projectile = go.GetComponent<Proyectile>();
+            Projectile projectile = go.GetComponent<Projectile>();
             projectilePool.Add(projectile);
 
             // Inyectamos referencia del manager
-            projectile.Initialize(this, damage);
+            projectile.Initialize(this, damage, "");
         }
     }
 
@@ -54,7 +55,7 @@ public class SpellManager : MonoBehaviour
         }
     }
 
-    public Proyectile GetProjectile()
+    public Projectile GetProjectile()
     {
         foreach (var p in projectilePool)
         {
@@ -74,14 +75,14 @@ public class SpellManager : MonoBehaviour
         return null;
     }
 
-    public void LaunchProjectile(Vector3 position, Vector3 direction, float damage)
+    public void LaunchProjectile(Vector3 position, Vector3 direction, float damage, string owner)
     {
-        Proyectile projectile = GetProjectile();
+        Projectile projectile = GetProjectile();
 
         if (projectile != null)
         {
             GameObject go = projectile.gameObject;
-            projectile.Initialize(this, damage);
+            projectile.Initialize(this, damage, owner);
             go.transform.position = position;
             go.transform.rotation = Quaternion.LookRotation(direction);
             go.SetActive(true);

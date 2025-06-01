@@ -20,7 +20,7 @@ public class EnemyBlueMage : Enemy
         {
             spellManager.SetDamage(damage);
             Vector3 direction = (player.position - shootPoint.position).normalized;
-            spellManager.LaunchProjectile(shootPoint.position, direction, damage);
+            spellManager.LaunchProjectile(shootPoint.position, direction, damage, this.tag);
         }
 
         yield return new WaitForSeconds(1f); // Tiempo después de disparar

@@ -65,8 +65,7 @@ public abstract class Enemy : Character
 
         // Solo hacer raycast si está en rango
         bool hasLineOfSight = playerInSightRange ? HasLineOfSightToPlayer() : false;
-        Debug.Log(hasLineOfSight);
-    
+            
         if (playerInSightRange && playerInAttackRange && hasLineOfSight) 
             AttackPlayer();
         else if (playerInSightRange && !playerInAttackRange && hasLineOfSight) 
@@ -240,7 +239,7 @@ public abstract class Enemy : Character
 
         Vector3 directionToPlayer = player.position - transform.position;
         float distanceToPlayer = directionToPlayer.magnitude;
-            Debug.DrawRay(directionToPlayer, directionToPlayer.normalized * distanceToPlayer, Color.red, 0.1f);
+        Debug.DrawRay(directionToPlayer, directionToPlayer.normalized * distanceToPlayer, Color.red, 5f);
         // Raycast desde la posición del enemigo hacia el jugador
         RaycastHit hit;
         if (Physics.Raycast(transform.position, directionToPlayer.normalized, out hit, distanceToPlayer))

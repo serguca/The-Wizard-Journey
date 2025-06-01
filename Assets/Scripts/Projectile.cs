@@ -1,20 +1,25 @@
 // Proyectil.cs
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class Proyectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifetime = 3f;
     private float elapsedTime = 0f;
     private float damage;
 
+    private string whoFired;
     private SpellManager spellManager; // Referencia al HechizoManager
+    private string owner;
 
-    public void Initialize(SpellManager manager, float damage)
+    public void Initialize(SpellManager manager, float damage, string owner)
     {
         this.damage = damage; // Guardar el daño del proyectil
         spellManager = manager; // Cachear la referencia al HechizoManager
+        this.owner = owner; // Guarda el owner
+        Debug.Log("Owner: " + owner);
     }
 
     public void Launch(Vector3 direction)
@@ -40,10 +45,11 @@ public class Proyectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag(owner)) return; // No dañes al que disparó
         MakeExplosion();
         if (other.CompareTag("Player") || other.CompareTag("Enemy"))
         {
-            // Debug.Log("Proyectile: golpea al jugador");
+            // Debug.Log("Projectile: golpea al jugador");
             other.GetComponent<Character>()?.TakeDamage(damage);
         }
 
