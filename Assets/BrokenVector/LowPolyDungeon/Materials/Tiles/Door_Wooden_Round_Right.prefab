@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9074594807981866218}
   - component: {fileID: 9074594807980867114}
   - component: {fileID: 9074594807983055083}
+  - component: {fileID: 2599565335936819628}
   m_Layer: 0
   m_Name: Door_Wooden_Round_Right
   m_TagString: Untagged
@@ -110,3 +111,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6007851859094294064, guid: cafad2acfc826be42a8b41f005b844b5, type: 3}
+--- !u!114 &2599565335936819628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074594807983055082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cff249072e86be42899a079a983dcef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationAngle: 90
+  rotationSpeed: 2
