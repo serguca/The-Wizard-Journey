@@ -16,11 +16,6 @@ public class Weapon : MonoBehaviour
         col.enabled = false;
     }
 
-    private void Update()
-    {
-        Debug.Log($"[{col.enabled}]");
-    }
-
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag("Player"))
