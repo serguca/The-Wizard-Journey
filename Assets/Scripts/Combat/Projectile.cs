@@ -19,7 +19,6 @@ public class Projectile : MonoBehaviour
         this.damage = damage; // Guardar el daño del proyectil
         spellManager = manager; // Cachear la referencia al HechizoManager
         this.owner = owner; // Guarda el owner
-        Debug.Log("Owner: " + owner);
     }
 
     public void Launch(Vector3 direction)

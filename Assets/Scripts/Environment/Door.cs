@@ -10,25 +10,32 @@ public class Door : MonoBehaviour
     [SerializeField] private bool canBeClosed = false;
     [SerializeField] private float detectionRadius = 3f; // Radio de detección
 
+    [Header("Key Requirement")]
+    [SerializeField] private bool requiresKey = false;
+    [SerializeField] private Item requiredKey; // La llave específica que necesita
+    [SerializeField] private bool consumeKeyOnUse = true; // Si la llave se consume al usar
+
     private bool isOpen = false;
     private bool isRotating = false;
     private Vector3 closedRotation;
     private Vector3 openRotation;
     private Transform player;
     private float sqrDetectionRadius; // Para evitar sqrt
+    
+    private bool HasRequiredKey()
+    {
+        return requiredKey != null && Inventory.Instance.HasItem(requiredKey, 1);
+    }
 
     void Start()
     {
         enabled = canBeOpened;
-                // Encontrar al jugador
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        
-        // Pre-calcular el radio al cuadrado para evitar sqrt
+
         sqrDetectionRadius = detectionRadius * detectionRadius;
 
-        // Guardar la rotación inicial (puerta cerrada)
         closedRotation = transform.eulerAngles;
-        // Calcular la rotación cuando esté abierta
+        // Rotación cuand esté abierta
         openRotation = closedRotation + new Vector3(0, rotationAngle, 0);
     }
 
@@ -43,7 +50,7 @@ public class Door : MonoBehaviour
     private bool IsPlayerNearby()
     {
         if (player == null) return false;
-        
+
         // Usar sqrMagnitude para evitar sqrt (más eficiente)
         Vector3 direction = player.position - transform.position;
         return direction.sqrMagnitude <= sqrDetectionRadius;
@@ -51,8 +58,13 @@ public class Door : MonoBehaviour
 
     private void ToggleDoor()
     {
-        // Si no se puede cerrar y ya está abierta, no hacer nada
         if (!canBeClosed && isOpen) return;
+        if (requiresKey && !isOpen)
+        {
+            if (!HasRequiredKey()) return;
+            if (consumeKeyOnUse)
+                Inventory.Instance.RemoveItem(requiredKey, 1);
+        }
 
         isOpen = !isOpen;
         StartCoroutine(RotateDoor());
@@ -73,7 +85,6 @@ public class Door : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float progress = elapsedTime / duration;
 
-            // Interpolación suave
             transform.eulerAngles = Vector3.Lerp(startRotation, targetRotation, progress);
 
             yield return null;
