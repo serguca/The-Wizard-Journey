@@ -3197,9 +3197,9 @@ MonoBehaviour:
   maxHealth: 50
   healthBar: {fileID: 8526076202432407689}
   damage: 15
-  timeBetweenAttacks: 1
-  sightRange: 40
-  attackRange: 20
+  timeBetweenAttacks: 0.5
+  sightRange: 30
+  attackRange: 10
   shootPoint: {fileID: 1145084335042446977}
   spellManager: {fileID: 3486966306614334897}
 --- !u!1 &9013948328105225777

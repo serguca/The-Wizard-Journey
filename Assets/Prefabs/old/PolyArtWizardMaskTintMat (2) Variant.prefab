@@ -430,18 +430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aa2b7385e28a845baa9c91854fc488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  healthBar: {fileID: 2295548175869194003}
   maxHealth: 50
-  hitCooldownActive: 0
-  whatsIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  whatsIsPlayer:
-    serializedVersion: 2
-    m_Bits: 128
-  doesItPatrols: 0
-  walkPointRange: 0
+  healthBar: {fileID: 2295548175869194003}
+  damage: 10
   timeBetweenAttacks: 2
   sightRange: 20
   attackRange: 8

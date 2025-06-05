@@ -337,12 +337,9 @@ MonoBehaviour:
   maxHealth: 20
   healthBar: {fileID: 4227526724480601966}
   damage: 10
-  doesItPatrols: 0
-  walkPointRange: 0
   timeBetweenAttacks: 3
   sightRange: 10
   attackRange: 2.5
-  attackDuration: 5
   weapon: {fileID: 2112317162524284750}
 --- !u!136 &8640391680646699406
 CapsuleCollider:

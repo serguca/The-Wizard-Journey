@@ -26,7 +26,7 @@ public class EnemySkeleton : Enemy
         yield return new WaitForSeconds(0.5f);
         weapon.SetColliderActive(false);
         // yield return EnableColliderAndDisableAfterTime(1.25f);
-        yield return new WaitForSeconds(2f);
+        // yield return new WaitForSeconds(2f);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;

@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3981574600683433171, guid: 0b998f3e33bd1da4984893aa3dcf2207, type: 3}
       propertyPath: m_Name
-      value: PolyArtWizardMaskTintMat (2) Variant 1
+      value: BlueMageEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 3981574600683433171, guid: 0b998f3e33bd1da4984893aa3dcf2207, type: 3}
       propertyPath: m_IsActive
