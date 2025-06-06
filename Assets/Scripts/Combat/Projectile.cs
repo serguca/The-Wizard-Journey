@@ -44,12 +44,20 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Projectile: colisiona con {other.name}");
         if (other.CompareTag(owner)) return; // No dañes al que disparó
         MakeExplosion();
         if (other.CompareTag("Player") || other.CompareTag("Enemy"))
         {
             // Debug.Log("Projectile: golpea al jugador");
-            other.GetComponent<Character>()?.TakeDamage(damage);
+            Character character = other.GetComponent<Character>();
+            if (character == null)
+            {
+                Debug.Log("Es null :(");
+                character = other.GetComponentInParent<Character>();
+            }
+            character?.TakeDamage(damage);
+            if (character == null) Debug.Log("Sigue siendo null :(");
         }
 
         gameObject.SetActive(false);

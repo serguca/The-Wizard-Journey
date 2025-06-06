@@ -9,7 +9,7 @@ public abstract class Enemy : Character
 {
     protected NavMeshAgent agent;
     protected Transform player;
-    private Collider col;
+    protected Collider col;
 
     private LayerMask whatsIsGround, whatsIsPlayer;
     protected Animator animator;
@@ -25,6 +25,12 @@ public abstract class Enemy : Character
     [Header("States")]
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
+    [SerializeField] protected bool hasSecondPhase = false;
+    private bool isStunneable = true;
+    protected void setStunneable(bool value)
+    {
+        isStunneable = value;
+    }
 
     private void Awake()
     {
@@ -32,30 +38,33 @@ public abstract class Enemy : Character
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
+        if (col == null)
+        {
+            col = GetComponentInChildren<Collider>();
+            if (col == null)
+            {
+                Debug.LogError("No collider found on the enemy or its children.");
+            }
+        }
         whatsIsGround = LayerMask.GetMask("Ground");
         whatsIsPlayer = LayerMask.GetMask("Player");
     }
 
     protected virtual void Start()
     {
+        healthBar.SetProgress(1f); // Inicializa la barra de salud al 100%
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // private void OnEnable()
-    // {
-    //     EventManager.DamageEnemy += TakeDamage;
-    // }
-
-    // private void OnDisable()
-    // {
-    //     EventManager.DamageEnemy -= TakeDamage;
-    // }
-
     private void Update()
     {
-        if (isDead) return; // Bloquea toda la lógica si está muerto excepto los eventos
+        if (isDead) return;
         if (health <= 0f) Die();
-        if (attackCooldownActive || hitCooldownActive) return; //TODO: hacer esto mejor
+        if (attackCooldownActive || hitCooldownActive) return;
+        if (hasSecondPhase && health < maxHealth / 2f)
+        {
+            Debug.Log("Enemigo en segunda fase");
+        }
 
         Vector3 directionToPlayer = player.position - transform.position;
         float sqrDistance = directionToPlayer.sqrMagnitude;
@@ -106,7 +115,7 @@ public abstract class Enemy : Character
         hitCooldownActive = true;
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
-        agent.isStopped = true;
+        // if(isStunneable) agent.isStopped = true;
     }
 
     protected void ResetAllTriggers()
@@ -229,7 +238,7 @@ public abstract class Enemy : Character
         if (directionToPlayer != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 3f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
         }
     }
 
