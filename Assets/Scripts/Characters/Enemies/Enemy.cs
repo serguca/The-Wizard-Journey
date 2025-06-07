@@ -26,11 +26,10 @@ public abstract class Enemy : Character
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
     [SerializeField] protected bool hasSecondPhase = false;
-    private bool isStunneable = true;
-    protected void setStunneable(bool value)
-    {
-        isStunneable = value;
-    }
+    protected bool isStunneable = true;
+    protected bool legacyAnimations = false; 
+    protected bool hasLineOfSight = false;
+    protected bool doesDissapear = true; // Si el enemigo desaparece al morir
 
     private void Awake()
     {
@@ -56,15 +55,11 @@ public abstract class Enemy : Character
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (isDead) return;
         if (health <= 0f) Die();
         if (attackCooldownActive || hitCooldownActive) return;
-        if (hasSecondPhase && health < maxHealth / 2f)
-        {
-            Debug.Log("Enemigo en segunda fase");
-        }
 
         Vector3 directionToPlayer = player.position - transform.position;
         float sqrDistance = directionToPlayer.sqrMagnitude;
@@ -73,7 +68,7 @@ public abstract class Enemy : Character
         playerInAttackRange = sqrDistance <= attackRange * attackRange;
 
         // Solo hacer raycast si está en rango
-        bool hasLineOfSight = playerInSightRange ? HasLineOfSightToPlayer() : false;
+        hasLineOfSight = playerInSightRange ? HasLineOfSightToPlayer() : false;
             
         if (playerInSightRange && playerInAttackRange && hasLineOfSight) 
             AttackPlayer();
@@ -136,14 +131,14 @@ public abstract class Enemy : Character
         if (animator != null)
         {
             Debug.Log("Muerto");
-            //ResetAllTriggers(); //ya no hace falta con crossfade
-            animator.SetTrigger("Death");
-            animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
+            //No funciona CrossFade con legacy animations
+            if (!legacyAnimations) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
+            else animator.SetTrigger("Death"); 
         }
         if (col != null) col.enabled = false;
         if (agent != null) agent.enabled = false;
 
-        StartCoroutine(DisappearAfterSeconds(30f));
+        if(doesDissapear) StartCoroutine(DisappearAfterSeconds(30f));
         StartCoroutine(HealthBarDissapear(2f));
     }
 
@@ -194,14 +189,6 @@ public abstract class Enemy : Character
         }
 
         SmoothLookAtPlayer();
-    }
-
-    private void LookPlayer()
-    {
-        Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, player.position.z);
-        // transform.LookAt(targetPosition);
-        Quaternion rotacionDeseada = Quaternion.LookRotation(targetPosition);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotacionDeseada, 1 * Time.deltaTime);
     }
 
     protected bool IsFacingPlayer()
