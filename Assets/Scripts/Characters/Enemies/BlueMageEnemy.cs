@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBlueMage : Enemy
+public class BlueMageEnemy : Enemy
 {
     [SerializeField] private Transform shootPoint;
     [SerializeField] private SpellManager spellManager;

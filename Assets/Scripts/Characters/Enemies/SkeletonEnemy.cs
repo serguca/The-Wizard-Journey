@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemySpider : Enemy
+public class SkeletonEnemy : Enemy
 {
     [SerializeField] private Weapon weapon;// Rango de ataque
     private float attackDuration = 3; // Duración del ataque

@@ -115,7 +115,7 @@ public abstract class Enemy : Character
         hitCooldownActive = true;
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
-        // if(isStunneable) agent.isStopped = true;
+        if(isStunneable) agent.isStopped = true;
     }
 
     protected void ResetAllTriggers()
@@ -135,8 +135,9 @@ public abstract class Enemy : Character
         isDead = true;
         if (animator != null)
         {
-            Debug.Log("MUERTEADO");
+            Debug.Log("Muerto");
             //ResetAllTriggers(); //ya no hace falta con crossfade
+            animator.SetTrigger("Death");
             animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
         }
         if (col != null) col.enabled = false;

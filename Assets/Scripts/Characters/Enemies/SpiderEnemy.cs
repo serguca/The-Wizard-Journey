@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class SpiderEnemy : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    protected override void Start()
+    {
+        base.Start();
+        setStunneable(false);
+    }
     protected override IEnumerator HandleAttack()
     {
-        setStunneable(false);
         col = GetComponent<Collider>();
         attackCooldownActive = true;
         if (animator != null) animator.SetTrigger("Attack");
