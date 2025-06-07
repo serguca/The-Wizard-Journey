@@ -25,7 +25,6 @@ public abstract class Enemy : Character
     [Header("States")]
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
-    [SerializeField] protected bool hasSecondPhase = false;
     protected bool isStunneable = true;
     protected bool legacyAnimations = false; 
     protected bool hasLineOfSight = false;
@@ -36,9 +35,10 @@ public abstract class Enemy : Character
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         if (col == null)
         {
-            col = GetComponentInChildren<Collider>();
+            col = GetComponentInChildren<MeshCollider>();
             if (col == null)
             {
                 Debug.LogError("No collider found on the enemy or its children.");
@@ -51,7 +51,6 @@ public abstract class Enemy : Character
     protected virtual void Start()
     {
         healthBar.SetProgress(1f); // Inicializa la barra de salud al 100%
-        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     protected virtual void Update()

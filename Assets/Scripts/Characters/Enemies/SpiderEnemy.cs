@@ -3,27 +3,6 @@ using UnityEngine;
 
 public class SpiderEnemy : Enemy
 {
-    private GameObject UI;
-    private bool secondPhase = false;
-    protected override void Start()
-    {
-        base.Start();
-        isStunneable = false;
-        doesDissapear = false;
-        legacyAnimations = true;
-        UI = transform.Find("UI").gameObject;
-        UI.SetActive(false);
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        if (!UI.activeSelf && hasLineOfSight)
-        {
-            UI.SetActive(true);
-        }
-    }
-
     protected override IEnumerator HandleAttack()
     {
         col = GetComponent<Collider>();
@@ -42,14 +21,6 @@ public class SpiderEnemy : Enemy
         attackCooldownActive = false;
     }
 
-    public override void TakeDamage(float damage)
-    {
-        base.TakeDamage(damage);
-        if (!secondPhase && health < maxHealth / 2f)
-        {
-            secondPhase = true;
-        }
-    }
-    
 
+    
 }

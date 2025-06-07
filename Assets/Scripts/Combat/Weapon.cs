@@ -20,12 +20,7 @@ public class Weapon : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (damage > 0)
-            {
-                collision.GetComponent<Character>()?.TakeDamage(damage);
-                Debug.Log($"Weapon: Evento enviado con daño: [{damage}]");
-            }
-            else Debug.LogError("Weapon: El daño es cero o negativo, no se envía el evento.");
+            collision.GetComponent<Character>()?.TakeDamage(damage);
         }
     }
     
