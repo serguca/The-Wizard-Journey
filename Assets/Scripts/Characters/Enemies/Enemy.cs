@@ -30,7 +30,6 @@ public abstract class Enemy : Character
     protected bool legacyAnimations = false; 
     protected bool hasLineOfSight = false;
     protected bool doesDissapear = true; // Si el enemigo desaparece al morir
-
     private void Awake()
     {
         health = maxHealth;
