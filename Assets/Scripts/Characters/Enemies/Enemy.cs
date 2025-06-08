@@ -26,7 +26,7 @@ public abstract class Enemy : Character
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
     protected bool isStunneable = true;
-    protected bool legacyAnimations = false; 
+    protected bool useDeathTrigger = false;
     protected bool hasLineOfSight = false;
     protected bool doesDissapear = true; // Si el enemigo desaparece al morir
     [SerializeField] protected float cooldownTime = 1f; // Tiempo de cooldown para ataques y golpes
@@ -37,14 +37,7 @@ public abstract class Enemy : Character
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (col == null)
-        {
-            col = GetComponentInChildren<MeshCollider>();
-            if (col == null)
-            {
-                Debug.LogError("No collider found on the enemy or its children.");
-            }
-        }
+
         whatsIsGround = LayerMask.GetMask("Ground");
         whatsIsPlayer = LayerMask.GetMask("Player");
     }
@@ -58,27 +51,27 @@ public abstract class Enemy : Character
     {
         if (isDead) return;
         if (health <= 0f) Die();
-        if (attackCooldownActive || hitCooldownActive) return;
+        if (attackCooldownActive || (hitCooldownActive && isStunneable)) return;
 
         Vector3 directionToPlayer = player.position - transform.position;
         float sqrDistance = directionToPlayer.sqrMagnitude;
-        
+
         playerInSightRange = sqrDistance <= sightRange * sightRange;
         playerInAttackRange = sqrDistance <= attackRange * attackRange;
 
         // Solo hacer raycast si está en rango
         hasLineOfSight = playerInSightRange ? HasLineOfSightToPlayer() : false;
-            
-        if (playerInSightRange && playerInAttackRange && hasLineOfSight) 
+
+        if (playerInSightRange && playerInAttackRange && hasLineOfSight)
             AttackPlayer();
-        else if (playerInSightRange && !playerInAttackRange && hasLineOfSight) 
+        else if (playerInSightRange && !playerInAttackRange && hasLineOfSight)
             ChasePlayer();
         else
         {
             // Si pierde la línea de vista, puede patrullar o quedarse quieto
             if (animator != null) animator.SetBool("IsWalking", false);
             // if (!playerInSightRange && !playerInAttackRange) Patrolling();
-    }
+        }
     }
 
     private IEnumerator ColliderCooldown()
@@ -108,7 +101,7 @@ public abstract class Enemy : Character
         hitCooldownActive = true;
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
-        if(isStunneable)
+        if (isStunneable)
             agent.isStopped = true;
     }
 
@@ -131,13 +124,13 @@ public abstract class Enemy : Character
         {
             Debug.Log("Muerto");
             //No funciona CrossFade con legacy animations
-            if (!legacyAnimations) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
-            else animator.SetTrigger("Death"); 
+            if (!useDeathTrigger) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
+            else animator.SetTrigger("Death");
         }
         if (col != null) col.enabled = false;
         if (agent != null) agent.enabled = false;
 
-        if(doesDissapear) StartCoroutine(DisappearAfterSeconds(30f));
+        if (doesDissapear) StartCoroutine(DisappearAfterSeconds(30f));
         StartCoroutine(HealthBarDissapear(2f));
     }
 

@@ -3,6 +3,15 @@ using UnityEngine;
 
 public class SpiderEnemy : Enemy
 {
+    [SerializeField] private Weapon weapon;
+
+    protected override void Start()
+    {
+        base.Start();
+        isStunneable = false;
+        useDeathTrigger = true;
+        weapon.SetDamage(damage);
+    }
     protected override IEnumerator HandleAttack()
     {
         col = GetComponent<Collider>();
@@ -11,8 +20,11 @@ public class SpiderEnemy : Enemy
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;
-        
-        yield return new WaitForSeconds(1.5f);
+
+        weapon.SetColliderActive(true);
+        yield return new WaitForSeconds(0.5f);
+        weapon.SetColliderActive(false);
+        yield return new WaitForSeconds(0.8f);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;

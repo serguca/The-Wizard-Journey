@@ -10,7 +10,7 @@ public class Player : Character
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Transform deathRoom;
     private GameObject deathScreen; //todo: hacerlo con eventos
-    [SerializeField] private float attackCooldown = 0.25f;
+    [SerializeField] private float attackCooldown = 0.5f;
     private float lastShootTime = -999f;
     private Camera playerCamera;
 

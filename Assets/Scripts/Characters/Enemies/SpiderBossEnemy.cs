@@ -13,10 +13,10 @@ public class SpiderBossEnemy : Enemy
         base.Start();
         isStunneable = false;
         doesDissapear = false;
-        legacyAnimations = true;
+        useDeathTrigger = true;
         UI = transform.Find("UI").gameObject;
         UI.SetActive(false);
-
+        weapon.SetDamage(damage);
         eggControllers = eggs.GetComponentsInChildren<EggController>(true);
     }
 
@@ -70,11 +70,4 @@ public class SpiderBossEnemy : Enemy
         }
     }
     
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            collision.GetComponent<Character>()?.TakeDamage(damage);
-        }
-    }
 }
