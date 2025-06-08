@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SpiderBossEnemy : Enemy
 {
+    [SerializeField] private Weapon weapon;
     [SerializeField] private GameObject eggs;
     private EggController[] eggControllers; // Referencia a los scripts EggController en los hijos
     private GameObject UI;
@@ -37,7 +38,11 @@ public class SpiderBossEnemy : Enemy
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
+        weapon.SetColliderActive(true);
+        yield return new WaitForSeconds(0.5f);
+        weapon.SetColliderActive(false);
+        yield return new WaitForSeconds(0.5f);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;
@@ -67,7 +72,6 @@ public class SpiderBossEnemy : Enemy
     
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("HOLA Colision con " + collision.name);
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Character>()?.TakeDamage(damage);

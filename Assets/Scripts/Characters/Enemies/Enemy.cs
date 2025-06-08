@@ -29,6 +29,7 @@ public abstract class Enemy : Character
     protected bool legacyAnimations = false; 
     protected bool hasLineOfSight = false;
     protected bool doesDissapear = true; // Si el enemigo desaparece al morir
+    [SerializeField] protected float cooldownTime = 1f; // Tiempo de cooldown para ataques y golpes
     private void Awake()
     {
         health = maxHealth;
@@ -82,7 +83,6 @@ public abstract class Enemy : Character
 
     private IEnumerator ColliderCooldown()
     {
-        float cooldownTime = 1f;
         yield return new WaitForSeconds(cooldownTime);
         hitCooldownActive = false;
         if (!isDead)
@@ -108,7 +108,8 @@ public abstract class Enemy : Character
         hitCooldownActive = true;
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
-        if(isStunneable) agent.isStopped = true;
+        if(isStunneable)
+            agent.isStopped = true;
     }
 
     protected void ResetAllTriggers()

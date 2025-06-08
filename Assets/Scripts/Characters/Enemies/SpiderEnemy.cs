@@ -11,7 +11,7 @@ public class SpiderEnemy : Enemy
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;
-
+        
         yield return new WaitForSeconds(1.5f);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)

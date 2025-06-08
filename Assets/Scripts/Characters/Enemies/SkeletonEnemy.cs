@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class SkeletonEnemy : Enemy
 {
-    [SerializeField] private Weapon weapon;// Rango de ataque
+    [SerializeField] private Weapon weapon;
     private float attackDuration = 3; // Duración del ataque
     protected override void Start()
     {

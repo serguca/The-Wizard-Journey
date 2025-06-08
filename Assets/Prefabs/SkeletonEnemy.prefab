@@ -1417,8 +1417,8 @@ MonoBehaviour:
   damage: 30
   timeBetweenAttacks: 0
   sightRange: 30
-  attackRange: 1.5
-  hasSecondPhase: 0
+  attackRange: 2
+  cooldownTime: 1
   weapon: {fileID: 7294169744024852995}
 --- !u!136 &7249799499244778585
 CapsuleCollider:
