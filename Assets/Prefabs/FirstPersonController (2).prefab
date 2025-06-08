@@ -759,10 +759,11 @@ MonoBehaviour:
   spellManager: {fileID: 7537811487828246679}
   shootPoint: {fileID: 270919942948571860}
   deathRoom: {fileID: 0}
-  attackCooldown: 0.25
+  attackCooldown: 0.5
   damageFlashImage: {fileID: 7453307222383244499}
   flashDuration: 0.3
   flashColor: {r: 1, g: 0, b: 0, a: 0.21960784}
+  smallHealthPotion: {fileID: 11400000, guid: 7111ca316a5fd8b4e8b7bac2a6d5c6ab, type: 2}
 --- !u!1 &4406617812932647467
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,9 @@ public class Player : Character
     [SerializeField] private float flashDuration = 0.1f;
     [SerializeField] private Color flashColor = new Color(1f, 0f, 0f, 0.3f); // Rojo con 30% de opacidad
 
+    [Header("Inventory")]
+    [SerializeField] private Item smallHealthPotion;
+
     private void Start()
     {
         spellManager.SetDamage(damage);
@@ -43,6 +46,13 @@ public class Player : Character
             spellManager.LaunchProjectile(shootPosition, playerCamera.transform.forward, damage, this.tag);
             lastShootTime = Time.time;
         }
+        if (Input.GetKeyDown(KeyCode.F) && Inventory.Instance.HasItem(smallHealthPotion))
+        {
+            Inventory.Instance.RemoveItem(smallHealthPotion);
+            TakeDamage(-50f);
+            Debug.Log("Usando poción de salud: " + smallHealthPotion);
+        }
+
     }
 
     // private void OnEnable()
@@ -71,6 +81,8 @@ public class Player : Character
         Debug.Log("Evento Recibido damage: " + damage);
         if (hitCooldownActive || isDead) return; // Evita daño si está en cooldown o muerto
         health -= damage;
+        if(health < 0f) health = 0f; // Asegura que la salud no sea negativa
+        if(health > maxHealth) health = maxHealth; // Asegura que la salud no supere el máximo
         SetProgressBar(health);
 
         StartCoroutine(DamageFlashEffect());

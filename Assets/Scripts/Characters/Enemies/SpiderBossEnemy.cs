@@ -42,7 +42,7 @@ public class SpiderBossEnemy : Enemy
         weapon.SetColliderActive(true);
         yield return new WaitForSeconds(0.5f);
         weapon.SetColliderActive(false);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;
@@ -54,7 +54,7 @@ public class SpiderBossEnemy : Enemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        if (!secondPhase && health < maxHealth * 0.70f)
+        if (!secondPhase && health < maxHealth * 0.99f)
         {
             secondPhase = true;
             StartCoroutine(SecondPhase());
@@ -66,7 +66,7 @@ public class SpiderBossEnemy : Enemy
         foreach (var eggController in eggControllers)
         {
             eggController.Destroy();
-            yield return new WaitForSeconds(1f); // Delay between egg destruction
+            yield return new WaitForSeconds(5f); // Delay between egg destruction
         }
     }
     

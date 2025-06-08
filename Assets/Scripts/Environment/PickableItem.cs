@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Key : MonoBehaviour
+public class PickableItem : MonoBehaviour
 {
     [Header("Detection Settings")]
     [SerializeField] private float detectionRadius = 3f;

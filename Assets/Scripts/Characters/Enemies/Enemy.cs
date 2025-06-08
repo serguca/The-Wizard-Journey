@@ -78,7 +78,7 @@ public abstract class Enemy : Character
     {
         yield return new WaitForSeconds(cooldownTime);
         hitCooldownActive = false;
-        if (!isDead)
+        if (!isDead && isStunneable)
         {
             animator.SetTrigger("Idle"); //evitamos problemas isWalking, importante cooldown 1s
             Debug.Log("Cooldown finished, idle");
@@ -90,6 +90,8 @@ public abstract class Enemy : Character
         if (hitCooldownActive || isDead) return;
 
         health -= damage;
+        if(health < 0f) health = 0f; // Asegura que la salud no sea negativa
+        if(health > maxHealth) health = maxHealth; // Asegura que la salud no supere el máximo
         SetProgressBar(health);
 
         if (health <= 0f && !isDead)
@@ -124,8 +126,8 @@ public abstract class Enemy : Character
         {
             Debug.Log("Muerto");
             //No funciona CrossFade con legacy animations
-            if (!useDeathTrigger) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
-            else animator.SetTrigger("Death");
+            // if (!useDeathTrigger) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
+            animator.SetTrigger("Death");
         }
         if (col != null) col.enabled = false;
         if (agent != null) agent.enabled = false;

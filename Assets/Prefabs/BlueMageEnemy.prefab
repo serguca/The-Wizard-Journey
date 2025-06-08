@@ -3194,13 +3194,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aa2b7385e28a845baa9c91854fc488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 35
   healthBar: {fileID: 8526076202432407689}
-  damage: 35
+  damage: 40
   timeBetweenAttacks: 0.25
   sightRange: 30
   attackRange: 10
-  hasSecondPhase: 0
+  cooldownTime: 1
   shootPoint: {fileID: 1145084335042446977}
   spellManager: {fileID: 3486966306614334897}
 --- !u!1 &9013948328105225777

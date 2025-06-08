@@ -1433,7 +1433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6395132062c2644aab7b3a9926f420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 30
   healthBar: {fileID: 8277046338045831673}
   damage: 10
   timeBetweenAttacks: 1
@@ -1556,19 +1556,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 672752558859913035, guid: 32059dbaf69fe254e8a209d15f5f1095, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.002995242
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672752558859913035, guid: 32059dbaf69fe254e8a209d15f5f1095, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.9984237
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 672752558859913035, guid: 32059dbaf69fe254e8a209d15f5f1095, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000016877057
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672752558859913035, guid: 32059dbaf69fe254e8a209d15f5f1095, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.056045905
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672752558859913035, guid: 32059dbaf69fe254e8a209d15f5f1095, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1580,15 +1580,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 672752558859913035, guid: 32059dbaf69fe254e8a209d15f5f1095, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0.343
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 672752558859913035, guid: 32059dbaf69fe254e8a209d15f5f1095, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 186.426
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 672752558859913035, guid: 32059dbaf69fe254e8a209d15f5f1095, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -179.979
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

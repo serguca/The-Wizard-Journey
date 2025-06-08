@@ -87,6 +87,7 @@ public class Inventory : MonoBehaviour
         int totalQuantity = 0;
         foreach (var slot in inventorySlots)
         {
+            Debug.Log("Checking slot: " + slot.item?.itemName + " with quantity: " + slot.quantity);
             if (slot.item == item)
             {
                 totalQuantity += slot.quantity;
@@ -158,6 +159,18 @@ public class Inventory : MonoBehaviour
     {
         return GetEmptySlot() == null;
     }
+
+    public Item GetItemByName(string itemName)
+{
+    var items = Resources.LoadAll<Item>("");
+    foreach (var item in items)
+    {
+        Debug.Log("Item: " + item.itemName);
+        if (item.itemName == itemName)
+                return item;
+    }
+    return null;
+}
 }
 
 [Serializable]

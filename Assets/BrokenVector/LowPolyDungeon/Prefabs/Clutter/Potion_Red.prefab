@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7200927917086425554}
   - component: {fileID: 7200927917087392530}
   - component: {fileID: 7200927917085466067}
+  - component: {fileID: 7692075038517372212}
   m_Layer: 0
   m_Name: Potion_Red
   m_TagString: Untagged
@@ -110,3 +111,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c6179e854b44e2541a9956947c806de0, type: 3}
+--- !u!114 &7692075038517372212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200927917085466066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dce4a30fc04fe4f9b540268c5dfceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 3
+  keyItem: {fileID: 11400000, guid: 7111ca316a5fd8b4e8b7bac2a6d5c6ab, type: 2}
