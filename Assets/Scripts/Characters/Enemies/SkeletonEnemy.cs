@@ -9,6 +9,7 @@ public class SkeletonEnemy : Enemy
     protected override void Start()
     {
         base.Start();
+        useDeathTrigger = false;
         weapon.SetDamage(damage);
     }
 
@@ -31,6 +32,5 @@ public class SkeletonEnemy : Enemy
         if (animator != null && !isDead) animator.SetTrigger("Idle");
         attackCooldownActive = false;
     }
-
 
 }

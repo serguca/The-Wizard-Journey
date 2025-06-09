@@ -1415,10 +1415,11 @@ MonoBehaviour:
   maxHealth: 40
   healthBar: {fileID: 6724313496305233366}
   damage: 30
+  hitSound: {fileID: 8300000, guid: 522f995c5d9b8b34282cd1a2642ef313, type: 3}
   timeBetweenAttacks: 0
   sightRange: 30
   attackRange: 2
-  cooldownTime: 0.1
+  cooldownTime: 0.5
   weapon: {fileID: 7294169744024852995}
 --- !u!136 &7249799499244778585
 CapsuleCollider:
@@ -1436,7 +1437,7 @@ CapsuleCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3

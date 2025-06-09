@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed = 15f;
     [SerializeField] private float lifetime = 3f;
+    [SerializeField] private AudioClip hitSound; // Prefab de explosión, si es necesario
     private float elapsedTime = 0f;
     private float damage;
 
@@ -58,6 +59,10 @@ public class Projectile : MonoBehaviour
             }
             character?.TakeDamage(damage);
             if (character == null) Debug.Log("Sigue siendo null :(");
+        }
+        else
+        {
+            AudioManager.Instance.PlaySound(hitSound, transform.position);
         }
 
         gameObject.SetActive(false);

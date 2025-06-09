@@ -4853,6 +4853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifetime: 3
+  hitSound: {fileID: 8300000, guid: 2e65fe958f4040f419ac740ced009377, type: 3}
 --- !u!65 &9058381631328976032
 BoxCollider:
   m_ObjectHideFlags: 0

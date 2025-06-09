@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
 using MagicPigGames;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -26,7 +27,7 @@ public abstract class Enemy : Character
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
     protected bool isStunneable = true;
-    protected bool useDeathTrigger = false;
+    protected bool useDeathTrigger = true;
     protected bool hasLineOfSight = false;
     protected bool doesDissapear = true; // Si el enemigo desaparece al morir
     [SerializeField] protected float cooldownTime = 1f; // Tiempo de cooldown para ataques y golpes
@@ -87,20 +88,7 @@ public abstract class Enemy : Character
 
     override public void TakeDamage(float damage)
     {
-        if (hitCooldownActive || isDead) return;
-
-        health -= damage;
-        if(health < 0f) health = 0f; // Asegura que la salud no sea negativa
-        if(health > maxHealth) health = maxHealth; // Asegura que la salud no supere el máximo
-        SetProgressBar(health);
-
-        if (health <= 0f && !isDead)
-        {
-            Die();
-            return;
-        }
-
-        hitCooldownActive = true;
+        base.TakeDamage(damage);
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
         if (isStunneable)
@@ -119,15 +107,16 @@ public abstract class Enemy : Character
         }
     }
 
-    private void Die()
+    protected override void Die()
     {
+        base.Die();
         isDead = true;
         if (animator != null)
         {
             Debug.Log("Muerto");
-            //No funciona CrossFade con legacy animations
-            // if (!useDeathTrigger) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
-            animator.SetTrigger("Death");
+            // No funciona CrossFade con legacy animations
+            if (!useDeathTrigger) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
+            else animator.SetTrigger("Death");
         }
         if (col != null) col.enabled = false;
         if (agent != null) agent.enabled = false;

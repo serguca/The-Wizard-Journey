@@ -21,6 +21,7 @@ public class Player : Character
 
     [Header("Inventory")]
     [SerializeField] private Item smallHealthPotion;
+    [SerializeField] private AudioClip fireSound;
 
     private void Start()
     {
@@ -45,6 +46,10 @@ public class Player : Character
             Vector3 shootPosition = playerCamera.transform.position + playerCamera.transform.forward * shootPoint;
             spellManager.LaunchProjectile(shootPosition, playerCamera.transform.forward, damage, this.tag);
             lastShootTime = Time.time;
+            if (fireSound != null)
+            {
+                AudioManager.Instance.PlaySound(fireSound, shootPosition);
+            }
         }
         if (Input.GetKeyDown(KeyCode.F) && Inventory.Instance.HasItem(smallHealthPotion))
         {
@@ -78,21 +83,8 @@ public class Player : Character
 
     override public void TakeDamage(float damage)
     {
-        Debug.Log("Evento Recibido damage: " + damage);
-        if (hitCooldownActive || isDead) return; // Evita daño si está en cooldown o muerto
-        health -= damage;
-        if(health < 0f) health = 0f; // Asegura que la salud no sea negativa
-        if(health > maxHealth) health = maxHealth; // Asegura que la salud no supere el máximo
-        SetProgressBar(health);
-
+        base.TakeDamage(damage);
         StartCoroutine(DamageFlashEffect());
-
-        if (health <= 0f && !isDead)
-        {
-            Die();
-            return;
-        }
-        hitCooldownActive = true;
         StartCoroutine(ColliderCooldown());
     }
 
@@ -128,7 +120,7 @@ public class Player : Character
         }
     }
 
-    private void Die()
+    protected override void Die()
     {
         isDead = true;
         if (deathScreen != null) deathScreen.SetActive(true);
