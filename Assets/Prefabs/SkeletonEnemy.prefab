@@ -1422,6 +1422,7 @@ MonoBehaviour:
   attackRange: 2
   cooldownTime: 0.5
   weapon: {fileID: 7294169744024852995}
+  swordSwingSound: {fileID: 8300000, guid: b397e3d31a705904abf4b5e9f53285ff, type: 3}
 --- !u!136 &7249799499244778585
 CapsuleCollider:
   m_ObjectHideFlags: 0

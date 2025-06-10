@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class SkeletonEnemy : Enemy
 {
     [SerializeField] private Weapon weapon;
-    [SerializeField] protected AudioClip attackSound2;
+    [SerializeField] private AudioClip swordSwingSound;
     private float attackDuration = 3; // Duración del ataque
     protected override void Start()
     {
@@ -25,7 +25,7 @@ public class SkeletonEnemy : Enemy
         yield return new WaitForSeconds(0.1f);
         SoundManager.Instance.PlaySound(attackSound, transform.position);
         yield return new WaitForSeconds(0.4f);
-        SoundManager.Instance.PlaySound(attackSound2, transform.position);
+        SoundManager.Instance.PlaySound(swordSwingSound, transform.position, 1f);
         weapon.SetColliderActive(true);
         yield return new WaitForSeconds(0.5f);
         weapon.SetColliderActive(false);

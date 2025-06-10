@@ -11,8 +11,6 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float damage = 10f;
     [SerializeField] protected AudioClip hitSound;
     [SerializeField] protected AudioClip attackSound;
-    [SerializeField] protected AudioClip attackSound2;
-
     public float GetDamage()
     {
         return damage;
@@ -34,7 +32,7 @@ public abstract class Character : MonoBehaviour
         if (health > maxHealth) health = maxHealth; // Asegura que la salud no supere el máximo
         SetProgressBar(health);
 
-
+        SoundManager.Instance.PlaySound(hitSound, transform.position, 0.5f);
         if (health <= 0f && !isDead)
         {
             Die();
@@ -42,7 +40,6 @@ public abstract class Character : MonoBehaviour
         }
         
         hitCooldownActive = true;
-        SoundManager.Instance.PlaySound(hitSound, transform.position, 0.5f);
     }
 
     protected abstract void Die();
