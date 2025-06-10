@@ -8,13 +8,12 @@ public class BlueMageEnemy : Enemy
     [SerializeField] private SpellManager spellManager;
     protected override IEnumerator HandleAttack()
     {
-        Debug.Log("EnemyBlueMage: HandleAttack called");
         attackCooldownActive = true;
 
         if (animator != null) animator.SetTrigger("Shoot");
-        Debug.Log("EnemyBlueMage: Shoot animation triggered");
-        yield return new WaitForSeconds(0.5f); // Tiempo antes de disparar
-                ResetAllTriggers();
+        SoundManager.Instance.PlaySound(attackSound, transform.position);
+        yield return new WaitForSeconds(0.5f);
+        ResetAllTriggers();
 
         if (spellManager != null && shootPoint != null)
         {
@@ -23,7 +22,7 @@ public class BlueMageEnemy : Enemy
             spellManager.LaunchProjectile(shootPoint.position, direction, damage, this.tag);
         }
 
-        yield return new WaitForSeconds(1f); // Tiempo después de disparar
+        yield return new WaitForSeconds(1f);
 
         
         if (animator != null && !isDead) animator.SetTrigger("Idle");

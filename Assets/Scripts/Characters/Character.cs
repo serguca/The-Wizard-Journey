@@ -10,6 +10,8 @@ public abstract class Character : MonoBehaviour
     protected bool hitCooldownActive = false; // Bandera para evitar múltiples colisiones
     [SerializeField] protected float damage = 10f;
     [SerializeField] protected AudioClip hitSound;
+    [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip attackSound2;
 
     public float GetDamage()
     {
@@ -40,13 +42,9 @@ public abstract class Character : MonoBehaviour
         }
         
         hitCooldownActive = true;
-        AudioManager.Instance.PlaySound(hitSound, transform.position);
-        // AudioManager.Instance.PlaySound(hitSound, transform.position); // Reproducir sonido de daño
+        SoundManager.Instance.PlaySound(hitSound, transform.position, 0.5f);
     }
 
-    protected virtual void Die()
-    {
-
-    }
+    protected abstract void Die();
     
 }

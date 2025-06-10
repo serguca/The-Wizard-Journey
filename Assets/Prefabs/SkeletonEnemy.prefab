@@ -1416,7 +1416,8 @@ MonoBehaviour:
   healthBar: {fileID: 6724313496305233366}
   damage: 30
   hitSound: {fileID: 8300000, guid: 522f995c5d9b8b34282cd1a2642ef313, type: 3}
-  timeBetweenAttacks: 0
+  attackSound: {fileID: 8300000, guid: 01183c083d5c9ea4c875b8ca04e7b016, type: 3}
+  timeBetweenAttacks: 0.1
   sightRange: 30
   attackRange: 2
   cooldownTime: 0.5

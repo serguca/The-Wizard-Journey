@@ -31,9 +31,10 @@ public class SpiderBossEnemy : Enemy
 
     protected override IEnumerator HandleAttack()
     {
-        col = GetComponent<Collider>();
+        // col = GetComponent<Collider>();
         attackCooldownActive = true;
         if (animator != null) animator.SetTrigger("Attack");
+        SoundManager.Instance.PlaySound(attackSound, transform.position);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;

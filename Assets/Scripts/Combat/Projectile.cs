@@ -62,7 +62,7 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            AudioManager.Instance.PlaySound(hitSound, transform.position);
+            SoundManager.Instance.PlaySound(hitSound, transform.position);
         }
 
         gameObject.SetActive(false);

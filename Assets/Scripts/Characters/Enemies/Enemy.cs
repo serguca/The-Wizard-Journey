@@ -30,7 +30,7 @@ public abstract class Enemy : Character
     protected bool useDeathTrigger = true;
     protected bool hasLineOfSight = false;
     protected bool doesDissapear = true; // Si el enemigo desaparece al morir
-    [SerializeField] protected float cooldownTime = 1f; // Tiempo de cooldown para ataques y golpes
+    [SerializeField] protected float cooldownTime = 1f;
     private void Awake()
     {
         health = maxHealth;
@@ -91,7 +91,7 @@ public abstract class Enemy : Character
         base.TakeDamage(damage);
         if (animator != null) animator.SetTrigger("Hit");
         StartCoroutine(ColliderCooldown());
-        if (isStunneable)
+        if (isStunneable && agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;
     }
 
@@ -109,7 +109,6 @@ public abstract class Enemy : Character
 
     protected override void Die()
     {
-        base.Die();
         isDead = true;
         if (animator != null)
         {
@@ -238,4 +237,8 @@ public abstract class Enemy : Character
 
     protected abstract IEnumerator HandleAttack(); // Método abstracto para que cada enemigo implemente su ataque
 
+    protected bool IsAgentActive()
+    {
+        return agent != null && agent.enabled && agent.isOnNavMesh;
+    }
 }

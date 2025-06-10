@@ -8,7 +8,6 @@ public class Player : Character
 {
     [SerializeField] private SpellManager spellManager;
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private Transform deathRoom;
     private GameObject deathScreen; //todo: hacerlo con eventos
     [SerializeField] private float attackCooldown = 0.5f;
     private float lastShootTime = -999f;
@@ -21,8 +20,6 @@ public class Player : Character
 
     [Header("Inventory")]
     [SerializeField] private Item smallHealthPotion;
-    [SerializeField] private AudioClip fireSound;
-
     private void Start()
     {
         spellManager.SetDamage(damage);
@@ -46,9 +43,9 @@ public class Player : Character
             Vector3 shootPosition = playerCamera.transform.position + playerCamera.transform.forward * shootPoint;
             spellManager.LaunchProjectile(shootPosition, playerCamera.transform.forward, damage, this.tag);
             lastShootTime = Time.time;
-            if (fireSound != null)
+            if (attackSound != null)
             {
-                AudioManager.Instance.PlaySound(fireSound, shootPosition);
+                SoundManager.Instance.PlaySound(attackSound, shootPosition);
             }
         }
         if (Input.GetKeyDown(KeyCode.F) && Inventory.Instance.HasItem(smallHealthPotion))
@@ -125,7 +122,7 @@ public class Player : Character
         isDead = true;
         if (deathScreen != null) deathScreen.SetActive(true);
         GetComponent<FirstPersonController>().enabled = false;
-        transform.position = deathRoom.position; // Teletransporta al jugador a la habitación de muerte
+        // transform.position = deathRoom.position; // Teletransporta al jugador a la habitación de muerte
         StartCoroutine(WaitForKeyPressAndRestart());
     }
 
