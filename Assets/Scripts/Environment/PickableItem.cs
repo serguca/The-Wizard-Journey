@@ -1,22 +1,16 @@
 using UnityEngine;
 
-public class PickableItem : MonoBehaviour
+public class PickableItem : Interactable
 {
     [Header("Detection Settings")]
-    [SerializeField] private float detectionRadius = 3f;
     
     [Header("Item Data")]
     [SerializeField] private Item keyItem; // ← AQUÍ SE ASIGNA EN EL INSPECTOR
-    
     private bool isPickedUp = false;
-    private Transform player;
-    private float sqrDetectionRadius;
 
-    void Start()
+    override protected void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        sqrDetectionRadius = detectionRadius * detectionRadius;
-        
+        base.Start();
         // Validar que el keyItem esté asignado
         if (keyItem == null)
         {
@@ -28,12 +22,13 @@ public class PickableItem : MonoBehaviour
     {
         if (IsPlayerNearby() && Input.GetKeyDown(KeyCode.E))
         {
-            PickUp();
+            Interact();
         }
     }
     
-    private void PickUp()
+    override protected void Interact()
     {
+        base.Interact();
         if (isPickedUp || keyItem == null) return;
 
         // Usar el sistema de inventario
@@ -49,10 +44,5 @@ public class PickableItem : MonoBehaviour
         }
     }
 
-    private bool IsPlayerNearby()
-    {
-        if (player == null) return false;
-        Vector3 direction = player.position - transform.position;
-        return direction.sqrMagnitude <= sqrDetectionRadius;
-    }
+
 }

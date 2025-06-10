@@ -5,10 +5,8 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
-
     [SerializeField] private int poolSize = 20;
     [SerializeField] private AudioSource audioSourcePrefab;
-
     private Queue<AudioSource> audioPool = new Queue<AudioSource>();
     private List<AudioSource> activeAudioSources = new List<AudioSource>();
 

@@ -50,8 +50,8 @@ public abstract class Enemy : Character
 
     protected virtual void Update()
     {
-        if (isDead) return;
         if (health <= 0f) Die();
+        if (isDead) return;
         if (attackCooldownActive || (hitCooldownActive && isStunneable)) return;
 
         Vector3 directionToPlayer = player.position - transform.position;
@@ -109,7 +109,12 @@ public abstract class Enemy : Character
 
     protected override void Die()
     {
-        isDead = true;
+        if (isDead) return;
+        if (col != null) col.enabled = false;
+        if (agent != null) agent.enabled = false;
+
+        if (doesDissapear) StartCoroutine(DisappearAfterSeconds(30f));
+        StartCoroutine(HealthBarDissapear(2f));
         if (animator != null)
         {
             Debug.Log("Muerto");
@@ -117,11 +122,7 @@ public abstract class Enemy : Character
             if (!useDeathTrigger) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
             else animator.SetTrigger("Death");
         }
-        if (col != null) col.enabled = false;
-        if (agent != null) agent.enabled = false;
-
-        if (doesDissapear) StartCoroutine(DisappearAfterSeconds(30f));
-        StartCoroutine(HealthBarDissapear(2f));
+        isDead = true;
     }
 
     private IEnumerator HealthBarDissapear(float time)

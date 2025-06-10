@@ -53,12 +53,10 @@ public class Projectile : MonoBehaviour
             // Debug.Log("Projectile: golpea al jugador");
             Character character = other.GetComponent<Character>();
             if (character == null)
-            {
-                Debug.Log("Es null :(");
                 character = other.GetComponentInParent<Character>();
-            }
             character?.TakeDamage(damage);
-            if (character == null) Debug.Log("Sigue siendo null :(");
+            if (character.hitSound == null)
+                SoundManager.Instance.PlaySound(hitSound, transform.position);
         }
         else
         {

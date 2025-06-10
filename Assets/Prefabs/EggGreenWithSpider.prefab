@@ -224,6 +224,7 @@ MonoBehaviour:
   _damaged: {fileID: 4254736677504148876}
   _particleSystem: {fileID: 5046804621221988776}
   spiderEnemy: {fileID: 6756707528966296714}
+  eggDestroySound: {fileID: 8300000, guid: 9122046e0531ccb41b93d9b5bb05ab2f, type: 3}
 --- !u!1001 &3710229159071555965
 PrefabInstance:
   m_ObjectHideFlags: 0

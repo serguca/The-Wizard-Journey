@@ -2,15 +2,14 @@ using System.Collections;
 using UnityEngine;
 
 // Creado originalmente para el sonido de la lava y las cuchillas
-public class SoundEffect : MonoBehaviour
+public class SoundEffectSwingBlades : MonoBehaviour
 {
     [SerializeField] private float soundCooldown = 1f;
     [SerializeField] private AudioClip sound;
     [SerializeField] private float maxSoundDistance = 20f;
     private Transform player;
-
     private float maxSoundDistanceSqr; // Versión al cuadrado para comparar
-
+    
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;

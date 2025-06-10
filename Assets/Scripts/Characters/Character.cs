@@ -9,8 +9,9 @@ public abstract class Character : MonoBehaviour
     protected bool isDead = false;
     protected bool hitCooldownActive = false; // Bandera para evitar múltiples colisiones
     [SerializeField] protected float damage = 10f;
-    [SerializeField] protected AudioClip hitSound;
+    [SerializeField] public AudioClip hitSound;
     [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip healSound; // Duración del cooldown de daño
     public float GetDamage()
     {
         return damage;
@@ -32,7 +33,9 @@ public abstract class Character : MonoBehaviour
         if (health > maxHealth) health = maxHealth; // Asegura que la salud no supere el máximo
         SetProgressBar(health);
 
-        SoundManager.Instance.PlaySound(hitSound, transform.position, 0.5f);
+        if(damage > 0) SoundManager.Instance.PlaySound(hitSound, transform.position, 0.5f);
+        if(damage < 0) SoundManager.Instance.PlaySound(healSound, transform.position, 0.5f);
+
         if (health <= 0f && !isDead)
         {
             Die();

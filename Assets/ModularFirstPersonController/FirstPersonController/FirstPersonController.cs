@@ -58,8 +58,6 @@ public class FirstPersonController : MonoBehaviour
     public bool playerCanMove = true;
     public float walkSpeed = 5f;
     public float maxVelocityChange = 10f;
-
-    // Internal Variables
     private bool isWalking = false;
 
     #region Sprint
@@ -149,9 +147,13 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
+    private Player player;
+
     void Start()
     {
-        if(lockCursor)
+        player = GetComponent<Player>();
+
+        if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -378,6 +380,7 @@ public class FirstPersonController : MonoBehaviour
             if (targetVelocity.x != 0 || targetVelocity.z != 0 && isGrounded)
             {
                 isWalking = true;
+                player.PlayFootstepSound();
             }
             else
             {

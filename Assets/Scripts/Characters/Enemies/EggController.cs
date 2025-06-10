@@ -6,6 +6,7 @@ public class EggController : MonoBehaviour
     [SerializeField] GameObject _damaged;
     [SerializeField] private ParticleSystem _particleSystem;
     [SerializeField] private GameObject spiderEnemy;
+    [SerializeField] private AudioClip eggDestroySound;
     public void Start()
     {
         if (spiderEnemy != null)
@@ -19,6 +20,10 @@ public class EggController : MonoBehaviour
     }
     public void Destroy()
     {
+        if (eggDestroySound != null)
+        {
+            SoundManager.Instance.PlaySound(eggDestroySound, transform.position);
+        }
         _full.gameObject.SetActive(false);
         _damaged.gameObject.SetActive(true);
         _particleSystem.Play();

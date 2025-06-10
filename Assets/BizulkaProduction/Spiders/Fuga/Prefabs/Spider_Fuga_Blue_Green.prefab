@@ -1436,6 +1436,9 @@ MonoBehaviour:
   maxHealth: 30
   healthBar: {fileID: 8277046338045831673}
   damage: 10
+  hitSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 5bc709b9bfe73974fae96c3f2b16f309, type: 3}
+  healSound: {fileID: 0}
   timeBetweenAttacks: 1
   sightRange: 30
   attackRange: 1

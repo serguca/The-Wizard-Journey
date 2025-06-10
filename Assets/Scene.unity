@@ -13599,6 +13599,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cff249072e86be42899a079a983dcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detectionRadius: 3
+  interactionPrompt: Press E to interact
+  doorOpenSound: {fileID: 0}
   rotationAngle: 90
   rotationSpeed: 2
   canBeOpened: 1
@@ -17333,7 +17336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &506366940
 Transform:
   m_ObjectHideFlags: 0
@@ -24167,7 +24170,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 6c324ab1266d4d342b2bed33135bba5a, type: 3}
     - target: {fileID: 6830325086776528179, guid: f7ba260971c1b3f47acabefd259eb0e9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0.387
       objectReference: {fileID: 0}
     - target: {fileID: 6830325086776528179, guid: f7ba260971c1b3f47acabefd259eb0e9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -55826,6 +55829,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.00076398643
       objectReference: {fileID: 0}
+    - target: {fileID: 1363542243115044973, guid: 2ee2d8d1051c80b4e8ed7b4bd8f662a4, type: 3}
+      propertyPath: eggDestroySound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9122046e0531ccb41b93d9b5bb05ab2f, type: 3}
     - target: {fileID: 3884717250175024464, guid: 2ee2d8d1051c80b4e8ed7b4bd8f662a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.93
@@ -55882,6 +55889,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.0013938977
       objectReference: {fileID: 0}
+    - target: {fileID: 5417310861457368679, guid: 2ee2d8d1051c80b4e8ed7b4bd8f662a4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417310861457368679, guid: 2ee2d8d1051c80b4e8ed7b4bd8f662a4, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5bc709b9bfe73974fae96c3f2b16f309, type: 3}
     - target: {fileID: 6756707528965998762, guid: 2ee2d8d1051c80b4e8ed7b4bd8f662a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.05488512
@@ -66911,7 +66926,8 @@ MonoBehaviour:
   healthBar: {fileID: 1625142619}
   damage: 40
   hitSound: {fileID: 0}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 47cd270fe0f14404bbdb46a345ea33ac, type: 3}
+  healSound: {fileID: 0}
   timeBetweenAttacks: 2
   sightRange: 30
   attackRange: 5

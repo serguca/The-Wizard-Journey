@@ -758,9 +758,10 @@ MonoBehaviour:
   damage: 15
   hitSound: {fileID: 8300000, guid: f4d1e63d8c458144698fddff32213908, type: 3}
   attackSound: {fileID: 8300000, guid: 7b915fc529263c445884aad9c6967b4d, type: 3}
+  healSound: {fileID: 8300000, guid: 9a1219ab0bd0cd14abda1630f9ffd41e, type: 3}
+  footstepSound: {fileID: 8300000, guid: 9c1147b830a55d34c93ae9f7c00932cc, type: 3}
   spellManager: {fileID: 7537811487828246679}
   shootPoint: {fileID: 270919942948571860}
-  deathRoom: {fileID: 0}
   attackCooldown: 0.5
   damageFlashImage: {fileID: 7453307222383244499}
   flashDuration: 0.3

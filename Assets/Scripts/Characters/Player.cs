@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Player : Character
 {
+    [SerializeField] private AudioClip footstepSound;
     [SerializeField] private SpellManager spellManager;
     [SerializeField] private Transform shootPoint;
     private GameObject deathScreen; //todo: hacerlo con eventos
@@ -20,6 +21,7 @@ public class Player : Character
 
     [Header("Inventory")]
     [SerializeField] private Item smallHealthPotion;
+    private bool isPlayingFootstep = false;
     private void Start()
     {
         spellManager.SetDamage(damage);
@@ -52,6 +54,7 @@ public class Player : Character
         {
             Inventory.Instance.RemoveItem(smallHealthPotion);
             TakeDamage(-50f);
+
             Debug.Log("Usando poción de salud: " + smallHealthPotion);
         }
 
@@ -141,5 +144,26 @@ public class Player : Character
             }
             yield return null; // Espera un frame antes de volver a comprobar
         }
+    }
+
+    public void PlayFootstepSound()
+    {
+        if (footstepSound != null && !isPlayingFootstep)
+        {
+            StartCoroutine(PlayFootstepCoroutine());
+        }
+    }
+    
+    private IEnumerator PlayFootstepCoroutine()
+    {
+        isPlayingFootstep = true;
+        
+        // Reproduce el sonido
+        SoundManager.Instance.PlaySound(footstepSound, transform.position, 1f);
+        
+        // Espera la duración del clip
+        yield return new WaitForSeconds(footstepSound.length);
+        
+        isPlayingFootstep = false;
     }
 }

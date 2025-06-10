@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : Interactable
 {
     [Header("Door Settings")]
     [SerializeField] private float rotationAngle = 90f;
@@ -14,7 +14,6 @@ public class Door : MonoBehaviour
     [SerializeField] private bool requiresKey = false;
     [SerializeField] private Item requiredKey; // La llave específica que necesita
     [SerializeField] private bool consumeKeyOnUse = true; // Si la llave se consume al usar
-
     private bool isOpen = false;
     private bool isRotating = false;
     private Vector3 closedRotation;
@@ -27,37 +26,27 @@ public class Door : MonoBehaviour
         return requiredKey != null && Inventory.Instance.HasItem(requiredKey, 1);
     }
 
-    void Start()
+    override protected void Start()
     {
+        base.Start();
         enabled = canBeOpened;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        sqrDetectionRadius = detectionRadius * detectionRadius;
 
         closedRotation = transform.eulerAngles;
         // Rotación cuand esté abierta
         openRotation = closedRotation + new Vector3(0, rotationAngle, 0);
     }
 
-    void Update()
+    private void Update()
     {
         if (IsPlayerNearby() && Input.GetKeyDown(KeyCode.E) && !isRotating)
         {
-            ToggleDoor();
+            Interact();
         }
     }
-
-    private bool IsPlayerNearby()
+    
+    override protected void Interact()
     {
-        if (player == null) return false;
-
-        // Usar sqrMagnitude para evitar sqrt (más eficiente)
-        Vector3 direction = player.position - transform.position;
-        return direction.sqrMagnitude <= sqrDetectionRadius;
-    }
-
-    private void ToggleDoor()
-    {
+        base.Interact();
         if (!canBeClosed && isOpen) return;
         if (requiresKey && !isOpen)
         {

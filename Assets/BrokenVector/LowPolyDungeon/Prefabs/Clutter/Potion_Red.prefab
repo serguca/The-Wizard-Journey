@@ -124,4 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRadius: 3
+  interactionPrompt: Press E to interact
+  doorOpenSound: {fileID: 8300000, guid: 37b26d278b2e96d46828d80458bf513d, type: 3}
   keyItem: {fileID: 11400000, guid: 7111ca316a5fd8b4e8b7bac2a6d5c6ab, type: 2}
