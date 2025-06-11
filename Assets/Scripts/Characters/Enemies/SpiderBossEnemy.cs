@@ -8,6 +8,7 @@ public class SpiderBossEnemy : Enemy
     private EggController[] eggControllers; // Referencia a los scripts EggController en los hijos
     private GameObject UI;
     private bool secondPhase = false;
+    private VictoryChecker victoryChecker;
     protected override void Start()
     {
         base.Start();
@@ -17,6 +18,12 @@ public class SpiderBossEnemy : Enemy
         UI.SetActive(false);
         weapon.SetDamage(damage);
         eggControllers = eggs.GetComponentsInChildren<EggController>(true);
+        
+        victoryChecker = FindAnyObjectByType<VictoryChecker>();
+        if (victoryChecker == null)
+        {
+            Debug.LogError("VictoryChecker not found in the scene. Make sure it exists.");
+        }
     }
 
     protected override void Update()
@@ -66,6 +73,15 @@ public class SpiderBossEnemy : Enemy
         {
             eggController.Destroy();
             yield return new WaitForSeconds(2f); // Delay between egg destruction
+        }
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        if (victoryChecker != null)
+        {
+            victoryChecker.StartVictoryCheck();
         }
     }
     

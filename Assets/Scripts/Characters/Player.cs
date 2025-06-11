@@ -24,6 +24,7 @@ public class Player : Character
     [Header("Inventory")]
     [SerializeField] private Item smallHealthPotion;
     private bool isPlayingFootstep = false;
+    private bool win = false; // Indica si el jugador ha ganado
     private void Start()
     {
         spellManager.SetDamage(damage);
@@ -32,11 +33,11 @@ public class Player : Character
 
         health = maxHealth;
         deathScreen = GameObject.Find("DeathScreen");
-        if (deathScreen != null) deathScreen.SetActive(false); // Oculta al inicio
+        if (deathScreen != null) deathScreen.SetActive(false);
 
-        deathScreen = GameObject.Find("WinScreen");
-        if (deathScreen != null) deathScreen.SetActive(false); // Oculta al inicio
-        
+        winScreen = GameObject.Find("WinScreen");
+        if (winScreen != null) winScreen.SetActive(false);
+
         controlsScreen = GameObject.Find("ControlsScreen");
 
         if (damageFlashImage != null)
@@ -64,13 +65,19 @@ public class Player : Character
 
             Debug.Log("Usando poción de salud: " + smallHealthPotion);
         }
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             if (controlsScreen != null)
             {
                 controlsScreen.SetActive(!controlsScreen.activeSelf);
             }
         }
+    }
+
+    public void SetWin()
+    {
+        win = true;
+        Die();
     }
 
     // private void OnEnable()
@@ -136,7 +143,8 @@ public class Player : Character
     protected override void Die()
     {
         isDead = true;
-        if (deathScreen != null) deathScreen.SetActive(true);
+        if (!win && deathScreen != null) deathScreen.SetActive(true);
+        if (win && winScreen != null) winScreen.SetActive(true);
         GetComponent<FirstPersonController>().enabled = false;
         // transform.position = deathRoom.position; // Teletransporta al jugador a la habitación de muerte
         StartCoroutine(WaitForKeyPressAndRestart());

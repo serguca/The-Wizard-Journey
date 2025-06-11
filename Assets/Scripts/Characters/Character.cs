@@ -6,7 +6,7 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected float maxHealth = 100f;
     [SerializeField] protected ProgressBar healthBar; // Referencia a la barra de salud
     protected float health;
-    protected bool isDead = false;
+    public bool isDead = false;
     protected bool hitCooldownActive = false; // Bandera para evitar múltiples colisiones
     [SerializeField] protected float damage = 10f;
     [SerializeField] public AudioClip hitSound;

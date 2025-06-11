@@ -527,7 +527,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -843,6 +843,7 @@ GameObject:
   - component: {fileID: 3653559500409166802}
   - component: {fileID: 635858682039224630}
   - component: {fileID: 2595497118123076473}
+  - component: {fileID: 3466002976023107531}
   m_Layer: 0
   m_Name: FirstPersonController (2)
   m_TagString: Player
@@ -1042,6 +1043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthBar: {fileID: 7722090952129717630}
+  isDead: 0
   damage: 15
   hitSound: {fileID: 8300000, guid: f4d1e63d8c458144698fddff32213908, type: 3}
   attackSound: {fileID: 8300000, guid: 7b915fc529263c445884aad9c6967b4d, type: 3}
@@ -1054,6 +1056,29 @@ MonoBehaviour:
   flashDuration: 0.3
   flashColor: {r: 1, g: 0, b: 0, a: 0.21960784}
   smallHealthPotion: {fileID: 11400000, guid: 7111ca316a5fd8b4e8b7bac2a6d5c6ab, type: 2}
+--- !u!136 &3466002976023107531
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187969475308956156}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4406617812932647467
 GameObject:
   m_ObjectHideFlags: 0
