@@ -5,16 +5,39 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] private float detectionRadius = 3f;
     [SerializeField] private string interactionPrompt = "Press E to interact";
-    [SerializeField] private AudioClip doorOpenSound; // Sonido al abrir la puerta
-    private Transform player;
+    [SerializeField] private AudioClip doorOpenSound;
+    private Player playerScript;
     private float sqrDetectionRadius;
     private Boolean hasInteracted = false;
+    private bool playerWasNearby = false; // Nuevo: para detectar cambios
+    
     protected virtual void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            playerScript = playerObject.GetComponent<Player>();
+        }
+        
         sqrDetectionRadius = detectionRadius * detectionRadius;
     }
 
+    private void Update()
+    {
+        bool playerIsNearby = IsPlayerNearby();
+        
+        // Solo ejecutar callbacks cuando cambia el estado
+        if (playerIsNearby && !playerWasNearby)
+        {
+            OnPlayerEnter();
+        }
+        else if (!playerIsNearby && playerWasNearby)
+        {
+            OnPlayerExit();
+        }
+        
+        playerWasNearby = playerIsNearby;
+    }
 
     protected virtual void Interact()
     {
@@ -28,18 +51,26 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnPlayerEnter()
     {
-        // Mostrar prompt de interacción
+        Debug.Log($"Player entered range of: {gameObject.name}");
+        if (playerScript != null)
+        {
+            playerScript.SetPickupText(true);
+        }
     }
 
     public virtual void OnPlayerExit()
     {
-        // Ocultar prompt de interacción
+        Debug.Log($"Player exited range of: {gameObject.name}");
+        if (playerScript != null)
+        {
+            playerScript.SetPickupText(false);
+        }
     }
 
     protected bool IsPlayerNearby()
     {
-        if (player == null) return false;
-        Vector3 direction = player.position - transform.position;
+        if (playerScript == null) return false;
+        Vector3 direction = playerScript.transform.position - transform.position;
         return direction.sqrMagnitude <= sqrDetectionRadius;
     }
 }

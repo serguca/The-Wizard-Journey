@@ -18,7 +18,7 @@ public class PickableItem : Interactable
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (IsPlayerNearby() && Input.GetKeyDown(KeyCode.E))
         {

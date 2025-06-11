@@ -199,11 +199,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cff249072e86be42899a079a983dcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detectionRadius: 3
+  interactionPrompt: Press E to interact
+  doorOpenSound: {fileID: 0}
   rotationAngle: 90
   rotationSpeed: 2
   canBeOpened: 1
   canBeClosed: 0
-  detectionRadius: 3
+  requiresKey: 0
+  requiredKey: {fileID: 0}
+  consumeKeyOnUse: 1
 --- !u!4 &7606859214528932499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2642311626253648332, guid: ba93fc15ee14dbf45b36696cb946115f, type: 3}

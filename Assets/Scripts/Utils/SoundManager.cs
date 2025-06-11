@@ -34,7 +34,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(AudioClip clip, Vector3 position, float volume = 0.5f)
+    public void PlaySound(AudioClip clip, Vector3 position, float volume = 0.25f)
     {
         AudioSource source = GetPooledAudioSource();
         if (source != null)
@@ -44,6 +44,7 @@ public class SoundManager : MonoBehaviour
             source.volume = volume;
             source.gameObject.SetActive(true);
             source.Play();
+            Debug.Log($"Playing sound: {clip.name}");
 
             StartCoroutine(ReturnToPoolWhenFinished(source, clip.length));
         }

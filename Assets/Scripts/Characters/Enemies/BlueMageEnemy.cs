@@ -10,9 +10,10 @@ public class BlueMageEnemy : Enemy
     protected override IEnumerator HandleAttack()
     {
         attackCooldownActive = true;
-
-        if (animator != null) animator.SetTrigger("Shoot");
         SoundManager.Instance.PlaySound(attackSound, transform.position);
+        yield return new WaitForSeconds(0.1f);
+        if (animator != null) animator.SetTrigger("Shoot");
+        
         yield return new WaitForSeconds(0.5f);
         ResetAllTriggers();
 
@@ -23,7 +24,7 @@ public class BlueMageEnemy : Enemy
             spellManager.LaunchProjectile(shootPoint.position, direction, damage, this.tag);
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.9f);
 
         if (animator != null && !isDead) animator.SetTrigger("Idle");
         attackCooldownActive = false;

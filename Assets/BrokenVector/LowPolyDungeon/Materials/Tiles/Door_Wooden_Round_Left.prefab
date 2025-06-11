@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2642311626250748396}
   - component: {fileID: 2642311626251748140}
   - component: {fileID: 2642311626253688301}
+  - component: {fileID: 2539503573432625023}
   m_Layer: 0
   m_Name: Door_Wooden_Round_Left
   m_TagString: Untagged
@@ -110,3 +111,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4690904050770353206, guid: 18ba769f6f471c94ba78b15f094317ba, type: 3}
+--- !u!114 &2539503573432625023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642311626253688300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cff249072e86be42899a079a983dcef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 3
+  interactionPrompt: Press E to interact
+  doorOpenSound: {fileID: 8300000, guid: 784383cdeb86a564ea26e0c1782c7e99, type: 3}
+  rotationAngle: 160
+  rotationSpeed: 0.5
+  canBeOpened: 1
+  canBeClosed: 0
+  requiresKey: 0
+  requiredKey: {fileID: 0}
+  consumeKeyOnUse: 1

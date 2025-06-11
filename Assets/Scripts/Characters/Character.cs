@@ -33,8 +33,8 @@ public abstract class Character : MonoBehaviour
         if (health > maxHealth) health = maxHealth; // Asegura que la salud no supere el máximo
         SetProgressBar(health);
 
-        if(damage > 0) SoundManager.Instance.PlaySound(hitSound, transform.position, 0.5f);
-        if(damage < 0) SoundManager.Instance.PlaySound(healSound, transform.position, 0.5f);
+        if(damage > 0 && hitSound!=null) SoundManager.Instance.PlaySound(hitSound, transform.position, 0.5f);
+        if(damage < 0 && healSound!=null) SoundManager.Instance.PlaySound(healSound, transform.position, 0.5f);
 
         if (health <= 0f && !isDead)
         {

@@ -21,7 +21,7 @@ public abstract class Enemy : Character
     protected bool walkPointSet;
 
     [Header("Attacking")]
-    [SerializeField] protected float timeBetweenAttacks = 2f;
+    // [SerializeField] protected float timeBetweenAttacks = 2f;
     protected bool attackCooldownActive = false;
     [Header("States")]
     [SerializeField] protected float sightRange, attackRange;

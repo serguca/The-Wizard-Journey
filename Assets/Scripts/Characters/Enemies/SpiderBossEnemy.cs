@@ -13,7 +13,6 @@ public class SpiderBossEnemy : Enemy
         base.Start();
         isStunneable = false;
         doesDissapear = false;
-        useDeathTrigger = true;
         UI = transform.Find("UI").gameObject;
         UI.SetActive(false);
         weapon.SetDamage(damage);
@@ -31,10 +30,8 @@ public class SpiderBossEnemy : Enemy
 
     protected override IEnumerator HandleAttack()
     {
-        // col = GetComponent<Collider>();
         attackCooldownActive = true;
         if (animator != null) animator.SetTrigger("Attack");
-        SoundManager.Instance.PlaySound(attackSound, transform.position);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;
@@ -44,6 +41,7 @@ public class SpiderBossEnemy : Enemy
         yield return new WaitForSeconds(0.5f);
         weapon.SetColliderActive(false);
         yield return new WaitForSeconds(1f);
+        SoundManager.Instance.PlaySound(attackSound, transform.position);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;
@@ -67,7 +65,7 @@ public class SpiderBossEnemy : Enemy
         foreach (var eggController in eggControllers)
         {
             eggController.Destroy();
-            yield return new WaitForSeconds(5f); // Delay between egg destruction
+            yield return new WaitForSeconds(2f); // Delay between egg destruction
         }
     }
     

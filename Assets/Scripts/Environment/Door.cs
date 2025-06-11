@@ -8,7 +8,6 @@ public class Door : Interactable
     [SerializeField] private float rotationSpeed = 2f;
     [SerializeField] private bool canBeOpened = true;
     [SerializeField] private bool canBeClosed = false;
-    [SerializeField] private float detectionRadius = 3f; // Radio de detección
 
     [Header("Key Requirement")]
     [SerializeField] private bool requiresKey = false;
@@ -18,8 +17,6 @@ public class Door : Interactable
     private bool isRotating = false;
     private Vector3 closedRotation;
     private Vector3 openRotation;
-    private Transform player;
-    private float sqrDetectionRadius; // Para evitar sqrt
     
     private bool HasRequiredKey()
     {

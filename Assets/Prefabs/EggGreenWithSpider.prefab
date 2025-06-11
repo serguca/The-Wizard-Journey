@@ -333,6 +333,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8670350972113487642, guid: 7a1e02b4e3e3cde4da6a58f6c596f9b7, type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5bc709b9bfe73974fae96c3f2b16f309, type: 3}
+    - target: {fileID: 8670350972113487642, guid: 7a1e02b4e3e3cde4da6a58f6c596f9b7, type: 3}
+      propertyPath: attackSound
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

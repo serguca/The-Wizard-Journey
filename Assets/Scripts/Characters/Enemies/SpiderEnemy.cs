@@ -4,12 +4,13 @@ using UnityEngine;
 public class SpiderEnemy : Enemy
 {
     [SerializeField] private Weapon weapon;
+    // [SerializeField] private PeriodicSoundEffect soundEffect;
+
 
     protected override void Start()
     {
         base.Start();
         isStunneable = false;
-        useDeathTrigger = true;
         weapon.SetDamage(damage);
     }
     protected override IEnumerator HandleAttack()
@@ -17,7 +18,6 @@ public class SpiderEnemy : Enemy
         // col = GetComponent<Collider>();
         attackCooldownActive = true;
         if (animator != null) animator.SetTrigger("Attack");
-        SoundManager.Instance.PlaySound(attackSound, transform.position);
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;
@@ -33,7 +33,5 @@ public class SpiderEnemy : Enemy
         if (animator != null && !isDead) animator.SetTrigger("Idle");
         attackCooldownActive = false;
     }
-
-
     
 }

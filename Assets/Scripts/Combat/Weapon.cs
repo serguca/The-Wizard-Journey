@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -28,7 +29,7 @@ public class Weapon : MonoBehaviour
             collision.GetComponent<Character>()?.TakeDamage(damage);
         }
     }
-    
+
     public void SetColliderActive(bool active)
     {
         if (colliders != null && colliders.Length > 0)
@@ -36,5 +37,11 @@ public class Weapon : MonoBehaviour
             foreach (var c in colliders)
                 c.enabled = active;
         }
+    }
+    
+    public IEnumerator DisappearAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        gameObject.SetActive(false);
     }
 }

@@ -10,6 +10,7 @@ public class Player : Character
     [SerializeField] private SpellManager spellManager;
     [SerializeField] private Transform shootPoint;
     private GameObject deathScreen; //todo: hacerlo con eventos
+    private GameObject pickUpText;
     [SerializeField] private float attackCooldown = 0.5f;
     private float lastShootTime = -999f;
     private Camera playerCamera;
@@ -30,7 +31,9 @@ public class Player : Character
 
         health = maxHealth;
         deathScreen = GameObject.Find("DeathScreen");
+        pickUpText = GameObject.Find("PickUpText");
         if (deathScreen != null) deathScreen.SetActive(false); // Oculta al inicio
+        if (pickUpText != null) pickUpText.SetActive(false); // Oculta al inicio
 
         if (damageFlashImage != null)
             damageFlashImage.enabled = false;
@@ -44,7 +47,7 @@ public class Player : Character
             float shootPoint = 0.5f; //medio metro por delante de la cámara aparecerá el proyectil
             Vector3 shootPosition = playerCamera.transform.position + playerCamera.transform.forward * shootPoint;
             spellManager.LaunchProjectile(shootPosition, playerCamera.transform.forward, damage, this.tag);
-            lastShootTime = Time.time;
+            lastShootTime = Time.time; 
             if (attackSound != null)
             {
                 SoundManager.Instance.PlaySound(attackSound, shootPosition);
@@ -73,6 +76,14 @@ public class Player : Character
     private void OnTriggerEnter(Collider other)
     {
         if (!hitCooldownActive) StartCoroutine(ColliderCooldown());
+    }
+
+    public void SetPickupText(bool enable)
+    {
+        if (pickUpText != null)
+        {
+            pickUpText.SetActive(enable);
+        }
     }
 
     private IEnumerator ColliderCooldown()

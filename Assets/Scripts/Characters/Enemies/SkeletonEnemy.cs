@@ -42,7 +42,17 @@ public class SkeletonEnemy : Enemy
             agent.isStopped = false;
 
         if (animator != null && !isDead) animator.SetTrigger("Idle");
-            attackCooldownActive = false;
+        attackCooldownActive = false;
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        if (weapon != null)
+        {
+            weapon.SetColliderActive(false);
+            weapon.DisappearAfterSeconds(30f);
+        }
     }
 
 }
