@@ -10,7 +10,6 @@ public class SkeletonEnemy : Enemy
     protected override void Start()
     {
         base.Start();
-        useDeathTrigger = false;
         weapon.SetDamage(damage);
     }
 
@@ -23,14 +22,21 @@ public class SkeletonEnemy : Enemy
             agent.isStopped = true;
 
         yield return new WaitForSeconds(0.1f);
+        if (isDead) yield break;
+
         SoundManager.Instance.PlaySound(attackSound, transform.position);
         yield return new WaitForSeconds(0.4f);
+        if (isDead) yield break;
+
         SoundManager.Instance.PlaySound(swordSwingSound, transform.position, 1f);
         weapon.SetColliderActive(true);
+
         yield return new WaitForSeconds(0.5f);
+        if (isDead) yield break;
+
         weapon.SetColliderActive(false);
 
-        ResetAllTriggers();
+        // ResetAllTriggers();
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;

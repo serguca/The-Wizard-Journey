@@ -6,6 +6,7 @@ public class BlueMageEnemy : Enemy
 {
     [SerializeField] private Transform shootPoint;
     [SerializeField] private SpellManager spellManager;
+    
     protected override IEnumerator HandleAttack()
     {
         attackCooldownActive = true;
@@ -24,7 +25,6 @@ public class BlueMageEnemy : Enemy
 
         yield return new WaitForSeconds(1f);
 
-        
         if (animator != null && !isDead) animator.SetTrigger("Idle");
         attackCooldownActive = false;
     }

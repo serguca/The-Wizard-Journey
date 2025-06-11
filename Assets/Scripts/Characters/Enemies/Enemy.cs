@@ -27,7 +27,6 @@ public abstract class Enemy : Character
     [SerializeField] protected float sightRange, attackRange;
     protected bool playerInSightRange, playerInAttackRange;
     protected bool isStunneable = true;
-    protected bool useDeathTrigger = true;
     protected bool hasLineOfSight = false;
     protected bool doesDissapear = true; // Si el enemigo desaparece al morir
     [SerializeField] protected float cooldownTime = 1f;
@@ -50,7 +49,6 @@ public abstract class Enemy : Character
 
     protected virtual void Update()
     {
-        if (health <= 0f) Die();
         if (isDead) return;
         if (attackCooldownActive || (hitCooldownActive && isStunneable)) return;
 
@@ -78,6 +76,9 @@ public abstract class Enemy : Character
     private IEnumerator ColliderCooldown()
     {
         yield return new WaitForSeconds(cooldownTime);
+
+        if (isDead) yield break;
+
         hitCooldownActive = false;
         if (!isDead && isStunneable)
         {
@@ -110,19 +111,21 @@ public abstract class Enemy : Character
     protected override void Die()
     {
         if (isDead) return;
+        isDead = true;
+
+        StopAllCoroutines();
+
         if (col != null) col.enabled = false;
         if (agent != null) agent.enabled = false;
 
-        if (doesDissapear) StartCoroutine(DisappearAfterSeconds(30f));
-        StartCoroutine(HealthBarDissapear(2f));
         if (animator != null)
         {
-            Debug.Log("Muerto");
-            // No funciona CrossFade con legacy animations
-            if (!useDeathTrigger) animator.CrossFade("Death", 0.25f, 0, 0f); //evitamos problemas con exit time
-            else animator.SetTrigger("Death");
+            ResetAllTriggers();
+            animator.SetBool("IsWalking", false);
+            animator.SetTrigger("Death");
         }
-        isDead = true;
+        if (doesDissapear) StartCoroutine(DisappearAfterSeconds(30f));
+        StartCoroutine(HealthBarDissapear(2f));
     }
 
     private IEnumerator HealthBarDissapear(float time)
