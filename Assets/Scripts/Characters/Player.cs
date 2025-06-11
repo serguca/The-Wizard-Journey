@@ -9,7 +9,9 @@ public class Player : Character
     [SerializeField] private AudioClip footstepSound;
     [SerializeField] private SpellManager spellManager;
     [SerializeField] private Transform shootPoint;
-    private GameObject deathScreen; //todo: hacerlo con eventos
+    private GameObject deathScreen; 
+    private GameObject winScreen; 
+    private GameObject controlsScreen;
     [SerializeField] private float attackCooldown = 0.5f;
     private float lastShootTime = -999f;
     private Camera playerCamera;
@@ -32,6 +34,11 @@ public class Player : Character
         deathScreen = GameObject.Find("DeathScreen");
         if (deathScreen != null) deathScreen.SetActive(false); // Oculta al inicio
 
+        deathScreen = GameObject.Find("WinScreen");
+        if (deathScreen != null) deathScreen.SetActive(false); // Oculta al inicio
+        
+        controlsScreen = GameObject.Find("ControlsScreen");
+
         if (damageFlashImage != null)
             damageFlashImage.enabled = false;
     }
@@ -44,7 +51,7 @@ public class Player : Character
             float shootPoint = 0.5f; //medio metro por delante de la cámara aparecerá el proyectil
             Vector3 shootPosition = playerCamera.transform.position + playerCamera.transform.forward * shootPoint;
             spellManager.LaunchProjectile(shootPosition, playerCamera.transform.forward, damage, this.tag);
-            lastShootTime = Time.time; 
+            lastShootTime = Time.time;
             if (attackSound != null)
             {
                 SoundManager.Instance.PlaySound(attackSound, shootPosition);
@@ -57,7 +64,13 @@ public class Player : Character
 
             Debug.Log("Usando poción de salud: " + smallHealthPotion);
         }
-
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            if (controlsScreen != null)
+            {
+                controlsScreen.SetActive(!controlsScreen.activeSelf);
+            }
+        }
     }
 
     // private void OnEnable()
