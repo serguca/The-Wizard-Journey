@@ -37,6 +37,7 @@ public class SpiderBossEnemy : Enemy
 
     protected override IEnumerator HandleAttack()
     {
+        SoundManager.Instance.PlaySound(attackSound, transform.position);
         attackCooldownActive = true;
         if (animator != null) animator.SetTrigger("Attack");
 
@@ -48,7 +49,7 @@ public class SpiderBossEnemy : Enemy
         yield return new WaitForSeconds(0.5f);
         weapon.SetColliderActive(false);
         yield return new WaitForSeconds(1f);
-        SoundManager.Instance.PlaySound(attackSound, transform.position);
+
 
         if (agent != null && agent.enabled && agent.isOnNavMesh)
             agent.isStopped = false;
