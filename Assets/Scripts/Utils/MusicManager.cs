@@ -19,9 +19,10 @@ public class MusicManager : MonoBehaviour
         }
     }
     
-    public void PlayMusic(AudioClip clip, bool loop = true)
+    public void PlayMusic(AudioClip clip, bool loop = true, float volume = 0.5f)
     {
         musicSource.clip = clip;
+        musicSource.volume = volume;
         musicSource.loop = loop;
         musicSource.Play();
     }
