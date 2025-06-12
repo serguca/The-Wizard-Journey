@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &9074594807982636234
 Transform:
@@ -30,11 +30,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0773699, y: 1.2387099, z: 1.4399999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9074594807981866218
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6007851859094294064, guid: cafad2acfc826be42a8b41f005b844b5, type: 3}
 --- !u!114 &2599565335936819628
@@ -123,14 +123,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cff249072e86be42899a079a983dcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 3
+  detectionRadius: 2
   interactionPrompt: Press E to interact
   doorOpenSound: {fileID: 8300000, guid: 784383cdeb86a564ea26e0c1782c7e99, type: 3}
-  rotationAngle: 90
-  rotationSpeed: 2
+  lookAtConstraint: {fileID: 0}
+  rotationAngle: 140
+  rotationSpeed: 0.5
   canBeOpened: 1
   canBeClosed: 0
-  detectionRadius: 3
   requiresKey: 0
   requiredKey: {fileID: 0}
   consumeKeyOnUse: 1

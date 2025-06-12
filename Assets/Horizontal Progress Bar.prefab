@@ -360,7 +360,6 @@ GameObject:
   - component: {fileID: 672752558859913029}
   - component: {fileID: 672752558859913028}
   - component: {fileID: 430495674}
-  - component: {fileID: 28189862032882141}
   m_Layer: 0
   m_Name: Horizontal Progress Bar
   m_TagString: Untagged
@@ -429,26 +428,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableTesting: 0
   progress: 0
---- !u!1183024399 &28189862032882141
-LookAtConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672752558859913032}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_Roll: 0
-  m_WorldUpObject: {fileID: 0}
-  m_UseUpObject: 0
-  m_Active: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 8548719042613926337, guid: 0ab35555c67aa7e47ba7823a29f7c41e, type: 3}
-    weight: 1
 --- !u!1 &672752559018686649
 GameObject:
   m_ObjectHideFlags: 0

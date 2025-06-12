@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 7314526620251459061, guid: ec90550db06bff048bdca55219d2f603, type: 3}
   explotionPrefab: {fileID: 3077343761403282166, guid: b76acc122539d7f4681f0d0ba587d6b1, type: 3}
-  poolSize: 15
+  poolSize: 10
 --- !u!1 &219766677916965710
 GameObject:
   m_ObjectHideFlags: 0
@@ -3196,10 +3196,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 35
   healthBar: {fileID: 8526076202432407689}
+  isDead: 0
   damage: 40
   hitSound: {fileID: 8300000, guid: 7cfdac7d4ebe3864499695f9511d90c2, type: 3}
   attackSound: {fileID: 8300000, guid: c2ae6cebca7821647abe2be229e30eb2, type: 3}
-  timeBetweenAttacks: 0.25
+  healSound: {fileID: 0}
   sightRange: 30
   attackRange: 10
   cooldownTime: 1

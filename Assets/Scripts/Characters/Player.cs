@@ -72,6 +72,15 @@ public class Player : Character
                 controlsScreen.SetActive(!controlsScreen.activeSelf);
             }
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            MusicManager.Instance.ToggleMusicMute();
+        }
+
     }
 
     public void SetWin()

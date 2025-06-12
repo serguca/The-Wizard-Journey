@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Interactable : MonoBehaviour
 {
     [SerializeField] private float detectionRadius = 3f;
     [SerializeField] private string interactionPrompt = "Press E to interact";
     [SerializeField] private AudioClip doorOpenSound; // Sonido al abrir la puerta
+    [SerializeField] private LookAtConstraint lookAtConstraint;
     private Transform player;
     private float sqrDetectionRadius;
     private Boolean hasInteracted = false;
@@ -13,7 +15,35 @@ public class Interactable : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         sqrDetectionRadius = detectionRadius * detectionRadius;
+
+        SetupLookAtConstraint();
     }
+
+    private void SetupLookAtConstraint()
+    {
+        if (lookAtConstraint != null && player != null)
+        {
+            // Crear una nueva fuente de constraint
+            ConstraintSource constraintSource = new ConstraintSource
+            {
+                sourceTransform = player,
+                weight = 1f
+            };
+            
+            // Añadir la fuente al constraint
+            lookAtConstraint.AddSource(constraintSource);
+            
+            // Configurar el constraint
+            lookAtConstraint.constraintActive = true;
+            
+            Debug.Log($"Look At Constraint configurado para seguir al player en {gameObject.name}");
+        }
+        else if (lookAtConstraint == null)
+        {
+            Debug.LogWarning($"Look At Constraint no asignado en {gameObject.name}");
+        }
+    }
+
 
 
     protected virtual void Interact()
