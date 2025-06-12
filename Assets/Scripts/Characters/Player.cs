@@ -27,6 +27,7 @@ public class Player : Character
     private bool win = false; // Indica si el jugador ha ganado
     private void Start()
     {
+        QualitySettings.vSyncCount = 1;
         spellManager.SetDamage(damage);
         FirstPersonController fpsController = GetComponent<FirstPersonController>();
         playerCamera = fpsController.playerCamera;

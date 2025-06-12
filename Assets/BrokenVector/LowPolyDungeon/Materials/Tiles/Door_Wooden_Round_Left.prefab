@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cff249072e86be42899a079a983dcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 0.5
+  detectionRadius: 2
   interactionPrompt: Press E to interact
   doorOpenSound: {fileID: 8300000, guid: 784383cdeb86a564ea26e0c1782c7e99, type: 3}
   lookAtConstraint: {fileID: 0}
