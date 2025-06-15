@@ -1360,7 +1360,6 @@ GameObject:
   - component: {fileID: 8670350972113487642}
   - component: {fileID: 4584833508629413166}
   - component: {fileID: 311430153319217339}
-  - component: {fileID: 9171400585476655568}
   m_Layer: 0
   m_Name: Spider_Fuga_Blue_Green
   m_TagString: Enemy
@@ -1436,11 +1435,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   healthBar: {fileID: 8277046338045831673}
+  isDead: 0
   damage: 10
   hitSound: {fileID: 8300000, guid: 5bc709b9bfe73974fae96c3f2b16f309, type: 3}
   attackSound: {fileID: 0}
   healSound: {fileID: 0}
-  timeBetweenAttacks: 1
   sightRange: 30
   attackRange: 1
   cooldownTime: 0.5
@@ -1490,21 +1489,6 @@ CapsuleCollider:
   m_Height: 3.5
   m_Direction: 2
   m_Center: {x: 0.002332548, y: 0.98, z: -0.42}
---- !u!114 &9171400585476655568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7978624207812556279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54eb0ddc6f4d6f24592aff927278d643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundCooldown: 3
-  sound: {fileID: 8300000, guid: 5bc709b9bfe73974fae96c3f2b16f309, type: 3}
-  maxSoundDistance: 20
 --- !u!1001 &8902456655648648893
 PrefabInstance:
   m_ObjectHideFlags: 0
